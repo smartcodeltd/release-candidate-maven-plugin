@@ -67,7 +67,6 @@ public class GetVersionMojoTest {
     }
 
     private File testPomFor(String projectName) throws IOException {
-        // todo: make a copy instead
         File projectDirectory = resources.getBasedir("projects/" + projectName);
         File pom = new File(projectDirectory, "pom.xml");
 
@@ -76,5 +75,4 @@ public class GetVersionMojoTest {
 
         return pom;
     }
-
 }
