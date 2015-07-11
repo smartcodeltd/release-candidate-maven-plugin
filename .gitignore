@@ -1,0 +1,15 @@
+# IntelliJ
+.idea
+*.iml
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# JEnv
+.java-version
+
+# Maven
+target
+work*
