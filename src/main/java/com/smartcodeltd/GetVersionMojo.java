@@ -10,12 +10,33 @@ import org.apache.maven.project.MavenProject;
 public class GetVersionMojo
     extends AbstractMojo
 {
-    @Parameter(defaultValue = "${project}", required = true)
+    private final static String default_project = "${project}";
+    private final static String default_version_format = "{{ version }}";
+
+    @Parameter(defaultValue = default_project, required = true)
     private MavenProject project;
+
+    @Parameter(defaultValue = default_version_format, required = true)
+    private String versionFormat;
+
+    @Parameter(required = false)
+    private Output output;
 
     public void execute()
         throws MojoExecutionException
     {
-        getLog().info("Detected project version: " + project.getVersion());
+        final String version = project.getVersion();
+
+        getLog().info(userFriendly(version));
+
+        output.write(version);
+
+        output.close();
+    }
+
+    // --
+
+    private String userFriendly(String version) {
+        return String.format("Detected version: '%s'", version);
     }
 }
