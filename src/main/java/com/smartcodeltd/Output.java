@@ -4,6 +4,7 @@ import com.smartcodeltd.writer.Writer;
 import com.smartcodeltd.writer.Writers;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.codehaus.plexus.util.ReaderFactory;
+import org.codehaus.plexus.util.StringUtils;
 
 import java.net.URI;
 import java.util.regex.Pattern;
@@ -50,8 +51,8 @@ public class Output {
         this.encoding = encoding;
     }
 
-    public void write(String message) {
-        writer.write(templated(message));
+    public void write(String version) {
+        writer.write(templated(version));
     }
 
     public void close() {
@@ -68,6 +69,15 @@ public class Output {
 
     private String templated(String version) {
         return leading_whitespace.matcher(template).replaceAll("")
-                .replace("{{ version }}", version);
+                .replace("{{ version }}", version)
+                .replace("{{ api_version }}", api(version));
+    }
+
+    private String api(String version) {
+        int hyphenPosition = version.indexOf("-");
+
+        return hyphenPosition > 0 ?
+                version.substring(0, hyphenPosition) :
+                version;
     }
 }

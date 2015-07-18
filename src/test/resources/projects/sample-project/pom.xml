@@ -27,6 +27,7 @@
                         <template>
                             ##teamcity[setParameter name='env.PROJECT_VERSION' value='{{ version }}']
                             ##teamcity[message text='Project version: {{ version }}']
+                            ##teamcity[message text='Api version: {{ api_version }}']
                         </template>
                         <encoding>UTF-8</encoding>
                     </output>

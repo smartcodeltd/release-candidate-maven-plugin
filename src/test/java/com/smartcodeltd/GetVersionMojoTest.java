@@ -76,6 +76,17 @@ public class GetVersionMojoTest {
     }
 
     @Test
+    public void writes_api_version() throws Exception {
+        getVersion = mojoFor("sample-project");
+
+        givenOutputWriter("stdout", withTemplate("VERSION={{ api_version }}"));
+
+        getVersion.execute();
+
+        assertThat(stdOutContent.toString(), is("VERSION=1.7.2\n"));
+    }
+
+    @Test
     public void writes_version_using_a_multiline_template_trimming_the_leading_whitespace() throws Exception {
         getVersion = mojoFor("sample-project");
 
