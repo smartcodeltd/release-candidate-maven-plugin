@@ -16,10 +16,21 @@
         <plugins>
             <plugin>
                 <groupId>com.smartcodeltd</groupId>
-                <artifactId>continuous-release-maven-plugin</artifactId>
+                <artifactId>release-candidate-maven-plugin</artifactId>
                 <version>1.0-SNAPSHOT</version>
                 <extensions>true</extensions>
-                <configuration />
+                <configuration>
+                    <versionFormat>{{ api_version }}-build.{{ build_number }}.sha.{{ git_commit_hash }}</versionFormat>
+                    <output>
+                        <!--<uri>stdout</uri>-->
+                        <uri>file:///${project.basedir}/project.properties</uri>
+                        <template>
+                            ##teamcity[setParameter name='env.PROJECT_VERSION' value='{{ version }}']
+                            ##teamcity[message text='Project version: {{ version }}']
+                        </template>
+                        <encoding>UTF-8</encoding>
+                    </output>
+                </configuration>
             </plugin>
         </plugins>
     </build>
