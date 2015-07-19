@@ -1,6 +1,7 @@
 package com.smartcodeltd;
 
 import org.apache.maven.plugin.testing.resources.TestResources;
+import org.codehaus.plexus.util.FileUtils;
 import org.junit.runner.Description;
 
 import java.io.File;
@@ -42,5 +43,13 @@ class TestProjectResources extends TestResources {
 
     public File baseDirectoryOf(String project) throws IOException {
         return new File(workDir, testName + "_" + project ).getCanonicalFile();
+    }
+
+    public File fileIn(String projectName, String fileName) throws IOException {
+        return new File(baseDirectoryOf(projectName), fileName);
+    }
+
+    public String contentOf(String projectName, String fileName) throws IOException {
+        return FileUtils.fileRead(fileIn(projectName, fileName));
     }
 }

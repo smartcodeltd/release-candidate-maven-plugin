@@ -1,32 +1,27 @@
 package com.smartcodeltd;
 
-import org.apache.maven.model.Model;
-import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.plugin.Mojo;
 import org.apache.maven.plugin.logging.Log;
-import org.apache.maven.plugin.testing.MojoRule;
-import org.apache.maven.project.MavenProject;
-import org.codehaus.plexus.util.FileUtils;
-import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 
 public class VersionMojoTest {
-    
-    @Rule public final MojoRule mojos = new MojoRule();
-    @Rule public final TestProjectResources resources = new TestProjectResources("src/test/resources/projects", "target/projects");
+
+    @Rule public final TestProjectResources resource = new TestProjectResources("src/test/resources/projects", "target/projects");
+    @Rule public final Mojos mojo = new Mojos("version", resource);
 
     private Log log;
 
-    private VersionMojo releaseCandidateVersion;
+    private Mojo releaseCandidateVersion;
 
     private final ByteArrayOutputStream stdOutContent = new ByteArrayOutputStream();
     
@@ -44,7 +39,8 @@ public class VersionMojoTest {
 
     @Test
     public void logs_detected_version_in_a_user_friendly_format() throws Exception {
-        releaseCandidateVersion = forProject("out-of-the-box");
+        releaseCandidateVersion = mojo.forProject("out-of-the-box");
+        releaseCandidateVersion.setLog(log);
 
         releaseCandidateVersion.execute();
 
@@ -54,7 +50,8 @@ public class VersionMojoTest {
 
     @Test
     public void tells_full_version_by_defualt() throws Exception {
-        releaseCandidateVersion = forProject("out-of-the-box");
+        releaseCandidateVersion = mojo.forProject("out-of-the-box");
+        releaseCandidateVersion.setLog(log);
 
         releaseCandidateVersion.execute();
 
@@ -64,7 +61,8 @@ public class VersionMojoTest {
 
     @Test
     public void writes_templated_version_to_stdout() throws Exception {
-        releaseCandidateVersion = forProject("teamcity-integration");
+        releaseCandidateVersion = mojo.forProject("teamcity-integration");
+        releaseCandidateVersion.setLog(log);
 
         releaseCandidateVersion.execute();
 
@@ -78,11 +76,12 @@ public class VersionMojoTest {
 
     @Test
     public void writes_templated_version_to_file() throws Exception {
-        releaseCandidateVersion = forProject("jenkins-integration");
+        releaseCandidateVersion = mojo.forProject("jenkins-integration");
+        releaseCandidateVersion.setLog(log);
 
         releaseCandidateVersion.execute();
 
-        assertThat(contentOf(fileIn("jenkins-integration", "project.properties")), is(
+        assertThat(resource.contentOf("jenkins-integration", "project.properties"), is(
             "PROJECT_VERSION=1.7.2-jenkins-SNAPSHOT\n" +
             "API_VERSION=1.7.2\n" +
             "QUALIFIED_API_VERSION=1.7.2-jenkins"
@@ -91,7 +90,8 @@ public class VersionMojoTest {
 
     @Test
     public void trims_leading_whitespace_in_templates() throws Exception {
-        releaseCandidateVersion = forProject("out-of-the-box");
+        releaseCandidateVersion = mojo.forProject("out-of-the-box");
+        releaseCandidateVersion.setLog(log);
 
         givenOutputWriter("stdout", withTemplate(
         "    ##teamcity[setParameter name='env.PROJECT_VERSION' value='{{ version }}']\n" +
@@ -109,56 +109,10 @@ public class VersionMojoTest {
     // --
 
     private void givenOutputWriter(String uri, String outputTemplate) throws IllegalAccessException {
-        given(releaseCandidateVersion, "output", new Output(uri, outputTemplate, "UTF-8"));
-    }
-
-    private void given(Mojo mojo, String field, Object value) throws IllegalAccessException {
-        mojos.setVariableValueToObject(mojo, field, value);
+        mojo.given(releaseCandidateVersion, "output", new Output(uri, outputTemplate, "UTF-8"));
     }
 
     private String withTemplate(String template) {
         return template;
-    }
-
-    private VersionMojo forProject(String projectName) throws Exception {
-        File pom = testPomFor(projectName);
-
-        VersionMojo mojo = (VersionMojo) mojos.lookupConfiguredMojo(projectFrom(pom), "version");
-        assertThat(mojo, not(nullValue()));
-
-        mojo.setLog(log);
-
-        return mojo;
-    }
-
-    private MavenProject projectFrom(File pom) throws IOException, XmlPullParserException {
-        MavenXpp3Reader reader = new MavenXpp3Reader();
-        Model model = reader.read(new FileReader(pom));
-
-        return new MavenProject(model);
-    }
-
-    private File testPomFor(String projectName) throws IOException {
-        File projectDirectory = resources.baseDirectoryFor(projectName);
-        File pom = new File(projectDirectory, "pom.xml");
-
-        assertThat(pom, not(nullValue()));
-        assertThat(pom.exists(), is(true));
-
-        // fixme: hack as maven doesn't expand ${project.basedir} when pom.xml is loaded, am I missing something?
-        FileUtils.fileWrite(pom, FileUtils.fileRead(pom).replace(
-                "${project.basedir}",
-                resources.baseDirectoryOf(projectName).getAbsolutePath()
-        ));
-
-        return pom;
-    }
-
-    private File fileIn(String projectName, String fileName) throws IOException {
-        return new File(resources.baseDirectoryOf(projectName), fileName);
-    }
-
-    private String contentOf(File file) throws IOException {
-        return FileUtils.fileRead(file);
     }
 }
