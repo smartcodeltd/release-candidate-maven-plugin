@@ -4,7 +4,7 @@
 
     <groupId>com.smartcodeltd</groupId>
     <artifactId>sample-project-using-continuous-release-maven-plugin</artifactId>
-    <version>1.7.2-SNAPSHOT</version>
+    <version>1.7.2-jenkins-SNAPSHOT</version>
 
     <packaging>jar</packaging>
 
@@ -20,14 +20,13 @@
                 <version>1.0-SNAPSHOT</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <versionFormat>{{ api_version }}-build.{{ build_number }}.sha.{{ git_commit_hash }}</versionFormat>
+                    <versionFormat>{{ api_version }}-build.${build_number}.sha.${git_commit_hash}</versionFormat>
                     <output>
-                        <!--<uri>stdout</uri>-->
-                        <uri>file:///${project.basedir}/project.properties</uri>
+                        <uri>file://${project.basedir}/project.properties</uri>
                         <template>
-                            ##teamcity[setParameter name='env.PROJECT_VERSION' value='{{ version }}']
-                            ##teamcity[message text='Project version: {{ version }}']
-                            ##teamcity[message text='Api version: {{ api_version }}']
+                            PROJECT_VERSION={{ version }}
+                            API_VERSION={{ api_version }}
+                            QUALIFIED_API_VERSION={{ qualified_api_version }}
                         </template>
                         <encoding>UTF-8</encoding>
                     </output>

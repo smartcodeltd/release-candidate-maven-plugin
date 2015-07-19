@@ -1,13 +1,14 @@
 package com.smartcodeltd;
 
+import com.smartcodeltd.domain.Version;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 
-@Mojo(name = "getVersion")
-public class GetVersionMojo
+@Mojo(name = "version")
+public class VersionMojo
     extends AbstractMojo
 {
     private final static String default_project = "${project}";
@@ -20,14 +21,14 @@ public class GetVersionMojo
     private String versionFormat;
 
     @Parameter(required = false)
-    private Output output;
+    private Output output = new Output();
 
     public void execute()
         throws MojoExecutionException
     {
-        final String version = project.getVersion();
+        Version version = versionOf(project);
 
-        getLog().info(userFriendly(version));
+        getLog().info(userFriendly(project.getVersion()));
 
         output.write(version);
 
@@ -35,6 +36,10 @@ public class GetVersionMojo
     }
 
     // --
+
+    private Version versionOf(MavenProject project) {
+        return new Version(project.getVersion());
+    }
 
     private String userFriendly(String version) {
         return String.format("Detected version: '%s'", version);
