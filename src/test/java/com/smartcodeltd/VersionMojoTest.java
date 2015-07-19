@@ -94,8 +94,8 @@ public class VersionMojoTest {
         releaseCandidateVersion = forProject("out-of-the-box");
 
         givenOutputWriter("stdout", withTemplate(
-        "    #teamcity[setParameter name='env.PROJECT_VERSION' value='{{ version }}']\n" +
-        "    #teamcity[message text='Project version: {{ version }}']"
+        "    ##teamcity[setParameter name='env.PROJECT_VERSION' value='{{ version }}']\n" +
+        "    ##teamcity[message text='Project version: {{ version }}']"
         ));
 
         releaseCandidateVersion.execute();
