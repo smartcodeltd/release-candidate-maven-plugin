@@ -10,7 +10,7 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 
-import static org.twdata.maven.mojoexecutor.MojoExecutor.*;
+//import static org.twdata.maven.mojoexecutor.MojoExecutor.*;
 
 @Mojo(name = "updateVersion")
 public class UpdateVersionMojo
@@ -37,21 +37,23 @@ public class UpdateVersionMojo
 
         getLog().info(version.formattedWith(versionFormat));
 
-        executeMojo(
-            plugin(
-                groupId("org.codehaus.mojo"),
-                artifactId("versions-maven-plugin"),
-                version("2.2")
-            ),
-            goal("set"),
-            configuration(
-                element(name("newVersion"), version.formattedWith(versionFormat))
-            ),
-            executionEnvironment(
-                mavenProject,
-                mavenSession,
-                pluginManager
-            )
-        );
+
+
+//        executeMojo(
+//            plugin(
+//                groupId("org.codehaus.mojo"),
+//                artifactId("versions-maven-plugin"),
+//                version("2.2")
+//            ),
+//            goal("set"),
+//            configuration(
+//                element(name("newVersion"), version.formattedWith(versionFormat))
+//            ),
+//            executionEnvironment(
+//                mavenProject,
+//                mavenSession,
+//                pluginManager
+//            )
+//        );
     }
 }
