@@ -2,7 +2,6 @@ package com.smartcodeltd.writer;
 
 import java.lang.reflect.Constructor;
 import java.net.URI;
-
 import java.nio.charset.Charset;
 
 public abstract class Writer {

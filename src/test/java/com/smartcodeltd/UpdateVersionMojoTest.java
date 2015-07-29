@@ -16,9 +16,7 @@ import java.util.List;
 import static com.smartcodeltd.sugar.Property.property;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.*;
 
 public class UpdateVersionMojoTest {
     
@@ -90,17 +88,12 @@ public class UpdateVersionMojoTest {
     }
 
     @Test
-    public void complains_if_no_parameters_are_provided() throws Exception {
+    public void complains_if_invalid_version_tokens_specified() throws Exception {
         // todo: implement
     }
 
 
-
     // --
-
-    private void givenConfigured(String field, Object value) throws IllegalAccessException {
-        mojo.given(releaseCandidateUpdateVersion, field, value);
-    }
 
     private List<Property> with(Property... properties) {
         return Arrays.asList(properties);

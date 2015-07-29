@@ -11,8 +11,8 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.net.URI;
-import java.util.Map;
 
+import static com.smartcodeltd.sugar.ConfigEntry.configured;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
@@ -96,13 +96,13 @@ public class VersionMojoTest {
         releaseCandidateVersion = mojo.forProject("out-of-the-box");
         releaseCandidateVersion.setLog(log);
 
-        givenConfigured(
-                outputUri("stdout"),
-                outputTemplate(
+        given(
+            configured("outputUri", URI.create("stdout")),
+            configured("outputTemplate",
                     "    ##teamcity[setParameter name='env.PROJECT_VERSION' value='{{ version }}']\n" +
                     "    ##teamcity[message text='Project version: {{ version }}']"
-                ),
-                encoding("UTF-8")
+            ),
+            configured("encoding", "UTF-8")
         );
 
         releaseCandidateVersion.execute();
@@ -115,21 +115,9 @@ public class VersionMojoTest {
 
     // --
 
-    private void givenConfigured(ConfigEntry<?>... entries) throws IllegalAccessException {
+    private void given(ConfigEntry<?>... entries) throws IllegalAccessException {
         for (ConfigEntry<?> entry : entries) {
             mojo.given(releaseCandidateVersion, entry.name, entry.value);
         }
-    }
-
-    private ConfigEntry<URI> outputUri(String value) {
-        return new ConfigEntry<URI>("outputUri", URI.create(value));
-    }
-
-    private ConfigEntry<String> outputTemplate(String value) {
-        return new ConfigEntry<String>("outputTemplate", value);
-    }
-
-    private ConfigEntry<String> encoding(String value) {
-        return new ConfigEntry<String>("encoding", value);
     }
 }

@@ -1,17 +1,17 @@
 package com.smartcodeltd;
 
-import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
 import com.google.common.io.Files;
 import com.smartcodeltd.domain.Version;
-import de.pdark.decentxml.*;
+import de.pdark.decentxml.Document;
+import de.pdark.decentxml.XMLParser;
+import de.pdark.decentxml.XMLSource;
+import de.pdark.decentxml.XMLStringSource;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Mojo;
-import org.apache.maven.plugins.annotations.Parameter;
-import org.apache.maven.project.MavenProject;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 
 //import static org.twdata.maven.mojoexecutor.MojoExecutor.*;
 
@@ -19,7 +19,6 @@ import java.io.*;
 public class UpdateVersionMojo
         extends ReleaseCandidateMojo
 {
-    // todo: make charset configurable
     public void execute()
             throws MojoExecutionException
     {
