@@ -26,6 +26,17 @@
 
     <dependencies>
         <dependency>
+            <groupId>de.pdark</groupId>
+            <artifactId>decentxml</artifactId>
+            <version>1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>18.0</version>
+        </dependency>
+
+        <dependency>
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
             <version>1</version>

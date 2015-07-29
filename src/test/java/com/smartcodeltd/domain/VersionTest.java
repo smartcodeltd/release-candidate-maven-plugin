@@ -73,4 +73,11 @@ public class VersionTest {
 
         assertThat(example, version.formattedWith(template), is(expectedResult));
     }
+
+    @Test
+    public void outputs_the_original_version_when_converted_to_string() {
+        version = new Version(projectVersion);
+
+        assertThat(example, version.toString(), is(projectVersion));
+    }
 }

@@ -1,59 +1,59 @@
 package com.smartcodeltd;
 
+import com.google.common.base.Charsets;
+import com.google.common.io.CharStreams;
+import com.google.common.io.Files;
 import com.smartcodeltd.domain.Version;
-import org.apache.maven.execution.MavenSession;
-import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.BuildPluginManager;
+import de.pdark.decentxml.*;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 
+import java.io.*;
+
 //import static org.twdata.maven.mojoexecutor.MojoExecutor.*;
 
 @Mojo(name = "updateVersion")
 public class UpdateVersionMojo
-        extends AbstractMojo
+        extends ReleaseCandidateMojo
 {
-    private final static String default_version_format = "{{ version }}";
-
-    @Parameter(defaultValue = default_version_format, required = false)
-    private String versionFormat;
-
-    @Component
-    private MavenProject mavenProject;
-
-    @Component
-    private MavenSession mavenSession;
-
-    @Component
-    private BuildPluginManager pluginManager;
-
+    // todo: make charset configurable
     public void execute()
             throws MojoExecutionException
     {
-        Version version = new Version(mavenProject.getVersion());
+        File   pom        = project.getFile();
+        String newVersion = evaluated(versionOf(project));
 
-        getLog().info(version.formattedWith(versionFormat));
+        info("Setting version to: '%s'", newVersion);
 
+        try {
+            update(pom, with(newVersion));
+        }
+        catch (IOException e) {
+            throw new MojoExecutionException(String.format("Couldn't write to pom file '%s'", pom.getPath()), e);
+        }
+    }
 
+    // --
 
-//        executeMojo(
-//            plugin(
-//                groupId("org.codehaus.mojo"),
-//                artifactId("versions-maven-plugin"),
-//                version("2.2")
-//            ),
-//            goal("set"),
-//            configuration(
-//                element(name("newVersion"), version.formattedWith(versionFormat))
-//            ),
-//            executionEnvironment(
-//                mavenProject,
-//                mavenSession,
-//                pluginManager
-//            )
-//        );
+    private String evaluated(Version version) {
+        return version.formattedWith(versionFormat);
+    }
+
+    private void update(File pom, String newVersion) throws IOException {
+        Document doc = parsed(pom);
+
+        doc.getChild("project/version").setText(newVersion);
+
+        Files.write(doc.toString(), pom, Charsets.UTF_8);
+    }
+
+    private Document parsed(File pom) throws IOException {
+        XMLParser parser = new XMLParser();
+        XMLSource source = new XMLStringSource(CharStreams.toString(Files.newReader(pom, Charsets.UTF_8)));
+
+        return parser.parse(source);
     }
 }

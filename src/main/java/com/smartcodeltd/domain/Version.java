@@ -19,6 +19,11 @@ public class Version {
                 .replace("{{ qualified_api_version }}", qualifiedApi(version));
     }
 
+    @Override
+    public String toString() {
+        return version;
+    }
+
     // --
 
     private String original(String version) {

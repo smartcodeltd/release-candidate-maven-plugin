@@ -12,6 +12,8 @@ public class ToFile extends Writer {
     public ToFile(URI uri, String encoding) throws IOException {
         super(uri, encoding);
 
+        // todo: replace with Guava
+
         out = new OutputStreamWriter(new FileOutputStream(new File(uri)), encoding);
     }
 
