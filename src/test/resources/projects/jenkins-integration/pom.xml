@@ -21,15 +21,13 @@
                 <extensions>true</extensions>
                 <configuration>
                     <versionFormat>{{ api_version }}-build.${build_number}.sha.${git_commit_hash}</versionFormat>
-                    <output>
-                        <uri>file://${project.basedir}/project.properties</uri>
-                        <template>
-                            PROJECT_VERSION={{ version }}
-                            API_VERSION={{ api_version }}
-                            QUALIFIED_API_VERSION={{ qualified_api_version }}
-                        </template>
-                        <encoding>UTF-8</encoding>
-                    </output>
+                    <outputUri>file://${project.basedir}/project.properties</outputUri>
+                    <outputTemplate>
+                        PROJECT_VERSION={{ version }}
+                        API_VERSION={{ api_version }}
+                        QUALIFIED_API_VERSION={{ qualified_api_version }}
+                    </outputTemplate>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
         </plugins>

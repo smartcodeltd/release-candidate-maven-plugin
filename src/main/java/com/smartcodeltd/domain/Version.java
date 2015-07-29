@@ -11,7 +11,6 @@ public class Version {
         this.version = projectVersion;
     }
 
-
     public String formattedWith(String template) {
         return leading_whitespace.matcher(template).replaceAll("")
                 .replace("{{ version }}",               original(version))

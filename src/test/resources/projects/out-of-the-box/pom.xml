@@ -22,11 +22,9 @@
                 <!--
                 <configuration>
                     <versionFormat>{{ version }}</versionFormat>
-                    <output>
-                        <uri>stdout</uri>
-                        <template>{{ version }}</template>
-                        <encoding>UTF-8</encoding>
-                    </output>
+                    <outputUri>stdout</outputUri>
+                    <outputTemplate>{{ version }}</outputTemplate>
+                    <encoding>UTF-8</encoding>
                 </configuration>
                 -->
             </plugin>

@@ -1,5 +1,6 @@
 package com.smartcodeltd;
 
+import com.smartcodeltd.sugar.ConfigEntry;
 import org.apache.maven.plugin.Mojo;
 import org.apache.maven.plugin.logging.Log;
 import org.junit.After;
@@ -9,6 +10,8 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.net.URI;
+import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -93,10 +96,14 @@ public class VersionMojoTest {
         releaseCandidateVersion = mojo.forProject("out-of-the-box");
         releaseCandidateVersion.setLog(log);
 
-        givenOutputWriter("stdout", withTemplate(
-        "    ##teamcity[setParameter name='env.PROJECT_VERSION' value='{{ version }}']\n" +
-        "    ##teamcity[message text='Project version: {{ version }}']"
-        ));
+        givenConfigured(
+                outputUri("stdout"),
+                outputTemplate(
+                    "    ##teamcity[setParameter name='env.PROJECT_VERSION' value='{{ version }}']\n" +
+                    "    ##teamcity[message text='Project version: {{ version }}']"
+                ),
+                encoding("UTF-8")
+        );
 
         releaseCandidateVersion.execute();
 
@@ -108,11 +115,21 @@ public class VersionMojoTest {
 
     // --
 
-    private void givenOutputWriter(String uri, String outputTemplate) throws IllegalAccessException {
-        mojo.given(releaseCandidateVersion, "output", new Output(uri, outputTemplate, "UTF-8"));
+    private void givenConfigured(ConfigEntry<?>... entries) throws IllegalAccessException {
+        for (ConfigEntry<?> entry : entries) {
+            mojo.given(releaseCandidateVersion, entry.name, entry.value);
+        }
     }
 
-    private String withTemplate(String template) {
-        return template;
+    private ConfigEntry<URI> outputUri(String value) {
+        return new ConfigEntry<URI>("outputUri", URI.create(value));
+    }
+
+    private ConfigEntry<String> outputTemplate(String value) {
+        return new ConfigEntry<String>("outputTemplate", value);
+    }
+
+    private ConfigEntry<String> encoding(String value) {
+        return new ConfigEntry<String>("encoding", value);
     }
 }

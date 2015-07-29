@@ -47,12 +47,12 @@ public class UpdateVersionMojo
 
         doc.getChild("project/version").setText(newVersion);
 
-        Files.write(doc.toString(), pom, Charsets.UTF_8);
+        Files.write(doc.toString(), pom, charset);
     }
 
     private Document parsed(File pom) throws IOException {
         XMLParser parser = new XMLParser();
-        XMLSource source = new XMLStringSource(CharStreams.toString(Files.newReader(pom, Charsets.UTF_8)));
+        XMLSource source = new XMLStringSource(CharStreams.toString(Files.newReader(pom, charset)));
 
         return parser.parse(source);
     }

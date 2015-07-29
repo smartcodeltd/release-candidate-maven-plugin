@@ -21,16 +21,14 @@
                 <extensions>true</extensions>
                 <configuration>
                     <versionFormat>{{ api_version }}-build.${build_number}.sha.${git_commit_hash}</versionFormat>
-                    <output>
-                        <uri>stdout</uri>
-                        <template>
-                            ##teamcity[setParameter name='env.PROJECT_VERSION' value='{{ version }}']
-                            ##teamcity[message text='Project version: {{ version }}']
-                            ##teamcity[message text='Api version: {{ api_version }}']
-                            ##teamcity[message text='Qualified api version: {{ qualified_api_version }}']
-                        </template>
-                        <encoding>UTF-8</encoding>
-                    </output>
+                    <outputUri>stdout</outputUri>
+                    <outputTemplate>
+                        ##teamcity[setParameter name='env.PROJECT_VERSION' value='{{ version }}']
+                        ##teamcity[message text='Project version: {{ version }}']
+                        ##teamcity[message text='Api version: {{ api_version }}']
+                        ##teamcity[message text='Qualified api version: {{ qualified_api_version }}']
+                    </outputTemplate>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
         </plugins>
