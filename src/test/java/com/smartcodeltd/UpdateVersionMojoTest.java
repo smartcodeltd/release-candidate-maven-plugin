@@ -13,8 +13,12 @@ import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.smartcodeltd.sugar.Difference.difference;
+import static com.smartcodeltd.sugar.Difference.differenceOf;
 import static com.smartcodeltd.sugar.Property.property;
+import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -83,8 +87,23 @@ public class UpdateVersionMojoTest {
     }
 
     @Test
-    public void backs_up_the_original_pom_xml_file() throws Exception {
-        // todo: implement
+    public void makes_the_version_the_only_difference_between_updated_and_original_pom() throws Exception {
+        releaseCandidateUpdateVersion = mojo.forProject("updating-the-version", with(
+                property("build_number", "2"),
+                property("git_commit", "16f0eb28")
+        ));
+
+        String originalContent = resource.contentOf("updating-the-version", "pom.xml");
+
+        releaseCandidateUpdateVersion.execute();
+
+        String newContent = resource.contentOf("updating-the-version", "pom.xml");
+
+        assertThat(differenceOf(originalContent, newContent), hasSize(1));
+        assertThat(differenceOf(originalContent, newContent), hasItem(difference(
+                "    <version>1.7.2-SNAPSHOT</version>",
+                "    <version>1.7.2-build.2.sha.16f0eb28</version>"
+        )));
     }
 
     @Test
