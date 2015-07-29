@@ -1,5 +1,5 @@
-Modified BSD License
-====================
+New BSD License
+===============
 
 _Copyright © 2015, Jan Molak, smartcode ltd._
 _All rights reserved._
