@@ -1,28 +1,24 @@
 package com.smartcodeltd.writer;
 
+import com.google.common.io.Files;
+
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.net.URI;
 import java.nio.charset.Charset;
 
-
 public class ToFile extends Writer {
-    private final OutputStreamWriter out;
+    private final BufferedWriter out;
 
     public ToFile(URI uri, Charset charset) throws IOException {
         super(uri, charset);
 
-        // todo: replace with Guava
-
-        out = new OutputStreamWriter(new FileOutputStream(new File(uri)), charset);
+        out = Files.newWriter(new File(uri), charset);
     }
 
     @Override
     public void write(String message) {
-        // todo: replace with Guava
-
         try {
             out.write(message);
             out.close();
