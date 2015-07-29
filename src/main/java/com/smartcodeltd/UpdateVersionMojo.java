@@ -13,8 +13,6 @@ import org.apache.maven.plugins.annotations.Mojo;
 import java.io.File;
 import java.io.IOException;
 
-//import static org.twdata.maven.mojoexecutor.MojoExecutor.*;
-
 @Mojo(name = "updateVersion")
 public class UpdateVersionMojo
         extends ReleaseCandidateMojo
