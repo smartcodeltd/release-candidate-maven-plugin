@@ -10,7 +10,38 @@
     <name>release-candidate-maven-plugin</name>
     <description>continuous delivery-friendly release plugin for maven</description>
 
-    <url>https://github.com/smartcodeltd/continuous-release-maven-plugin</url>
+    <url>https://github.com/smartcodeltd/release-candidate-maven-plugin</url>
+
+    <issueManagement>
+        <url>https://github.com/smartcodeltd/release-candidate-maven-plugin/issues</url>
+        <system>GitHub Issues</system>
+    </issueManagement>
+
+    <licenses>
+        <license>
+            <name>The BSD 3-Clause License</name>
+            <url>http://opensource.org/licenses/BSD-3-Clause</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/smartcodeltd/release-candidate-maven-plugin</url>
+        <connection>scm:git:git://github.com/smartcodeltd/release-candidate-maven-plugin.git</connection>
+        <developerConnection>scm:git:git://github.com/smartcodeltd/release-candidate-maven-plugin.git</developerConnection>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>jan-molak</id>
+            <name>Jan Molak</name>
+            <email>jan.molak+release-candidate@smartcodeltd.co.uk</email>
+            <url>http://smartcodeltd.co.uk</url>
+            <organization>smartcode ltd</organization>
+            <organizationUrl>http://smartcodeltd.co.uk</organizationUrl>
+            <timezone>Europe/London</timezone>
+        </developer>
+    </developers>
 
     <properties>
         <maven.version>3.2.5</maven.version>
