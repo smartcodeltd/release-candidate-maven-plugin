@@ -68,7 +68,7 @@ public class VersionTest {
     }
 
     @Test
-    public void allows_the_version_to_be_formatted() throws Exception {
+    public void allows_the_version_to_be_formatted() {
         version = new Version(projectVersion);
 
         assertThat(example, version.formattedWith(template), is(expectedResult));
@@ -80,4 +80,5 @@ public class VersionTest {
 
         assertThat(example, version.toString(), is(projectVersion));
     }
+
 }
