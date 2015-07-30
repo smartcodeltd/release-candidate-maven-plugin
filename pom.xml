@@ -191,6 +191,7 @@
                 <version>0.7.5.201505241946</version>
                 <configuration>
                     <destFile>${project.build.directory}/coverage/jacoco-unit.exec</destFile>
+                    <dataFile>${project.build.directory}/coverage/jacoco-unit.exec</dataFile>
                 </configuration>
                 <executions>
                     <execution>
@@ -201,7 +202,7 @@
                     </execution>
                     <execution>
                         <id>jacoco-site</id>
-                        <phase>post-integration-test</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
