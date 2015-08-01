@@ -1,11 +1,18 @@
 package com.smartcodeltd;
 
+import com.google.common.io.CharStreams;
+import com.google.common.io.Files;
 import com.smartcodeltd.domain.Version;
+import de.pdark.decentxml.Document;
+import de.pdark.decentxml.XMLParser;
+import de.pdark.decentxml.XMLSource;
+import de.pdark.decentxml.XMLStringSource;
 import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.Charset;
 
@@ -119,5 +126,12 @@ abstract public class ReleaseCandidateMojo
 
     protected <T> T getOrElse(T value, T defaultValue) {
         return value != null ? value : defaultValue;
+    }
+
+    protected Document parsed(File pom) throws IOException {
+        XMLParser parser = new XMLParser();
+        XMLSource source = new XMLStringSource(CharStreams.toString(Files.newReader(pom, charset)));
+
+        return parser.parse(source);
     }
 }

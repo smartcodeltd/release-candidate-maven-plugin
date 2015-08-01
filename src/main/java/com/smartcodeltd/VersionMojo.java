@@ -5,6 +5,11 @@ import com.smartcodeltd.writer.Writer;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
 
+import java.io.File;
+import java.io.IOException;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * Retrieves project version specified in pom.xml and outputs it
  * either to stdout or to a file, depending on configuration.
@@ -20,11 +25,22 @@ public class VersionMojo
     public void execute()
         throws MojoExecutionException
     {
-        Version version = versionOf(project);
+        File pom = project.getFile();
 
-        info("Detected version: '%s'", versionOf(project));
+        try {
+            Version version = currentVersionFrom(project.getFile());
 
-        Writer.from(outputUri, charset).
-            write(version.formattedWith(outputTemplate));
+            info("Detected version: '%s'", version);
+
+            Writer.from(outputUri, charset).
+                    write(version.formattedWith(outputTemplate));
+        }
+        catch (Exception e) {
+            throw new MojoExecutionException(String.format("Couldn't read project version from '%s'.", pom.getPath()), e);
+        }
+    }
+
+    private Version currentVersionFrom(File pom) throws IOException {
+        return new Version(checkNotNull(parsed(pom).getChild("project/version")).getText());
     }
 }

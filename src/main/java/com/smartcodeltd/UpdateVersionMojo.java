@@ -1,12 +1,8 @@
 package com.smartcodeltd;
 
-import com.google.common.io.CharStreams;
 import com.google.common.io.Files;
 import com.smartcodeltd.domain.Version;
 import de.pdark.decentxml.Document;
-import de.pdark.decentxml.XMLParser;
-import de.pdark.decentxml.XMLSource;
-import de.pdark.decentxml.XMLStringSource;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
 
@@ -48,12 +44,5 @@ public class UpdateVersionMojo
         doc.getChild("project/version").setText(newVersion);
 
         Files.write(doc.toString(), pom, charset);
-    }
-
-    private Document parsed(File pom) throws IOException {
-        XMLParser parser = new XMLParser();
-        XMLSource source = new XMLStringSource(CharStreams.toString(Files.newReader(pom, charset)));
-
-        return parser.parse(source);
     }
 }
