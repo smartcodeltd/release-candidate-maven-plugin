@@ -38,6 +38,7 @@ abstract public class ReleaseCandidateMojo
      * {{ api_version }}            1.2.0                   Use only the API version
      * {{ qualified_api_version }}  1.2.0-beta              API version plus the qualifier
      * {{ timestamp('YYYYMMdd') }}  20150801                Current time (JodaTime-compatible timestamp format can be used as argument)
+     *                                                      http://joda-time.sourceforge.net/apidocs/org/joda/time/format/DateTimeFormat.html
      *
      * Above tokens can also be used together, so specifying
      *   versionFormat: "{{ api_version }}.{{ timestamp('YYYYMMdd') }}"
