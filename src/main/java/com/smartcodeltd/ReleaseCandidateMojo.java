@@ -30,13 +30,13 @@ abstract public class ReleaseCandidateMojo
      * {{ version }}                1.2.0-beta-SNAPSHOT     Leave the version as it is
      * {{ api_version }}            1.2.0                   Use only the API version
      * {{ qualified_api_version }}  1.2.0-beta              API version plus the qualifier
-     * {{ timestamp('YYYYMMDD') }}  20150801                Current time (JodaTime-compatible timestamp format can be used as argument)
+     * {{ timestamp('YYYYMMdd') }}  20150801                Current time (JodaTime-compatible timestamp format can be used as argument)
      *
      * Above tokens can also be used together, so specifying
-     *   versionFormat: "{{ api_version }}.{{ timestamp('YYYYMMDD') }}"
+     *   versionFormat: "{{ api_version }}.{{ timestamp('YYYYMMdd') }}"
      *   yields:        1.2.0.20150801
      *
-     *   versionFormat: "{{ api_version }}-builton.{{ timestamp('YYYYMMDD') }}"
+     *   versionFormat: "{{ api_version }}-builton.{{ timestamp('YYYYMMdd') }}"
      *   yields:        1.2.0-builton.20150801
      *
      * Standard maven tokens can be used as well, so if you provide, say a `build_number` parameter when you build your project:
@@ -75,22 +75,30 @@ abstract public class ReleaseCandidateMojo
      * If your build server of choice understands text output produced by maven (which is the case if you're using
      * TeamCity), you can specify the `outputTemplate` as:
      *
+     * <pre>
+     * {@code
      * <outputTemplate>
      *  ##teamcity[setParameter name='env.PROJECT_VERSION' value='{{ version }}']
      *  ##teamcity[message text='Project version: {{ version }}']
      * </outputTemplate>
+     * }
+     * </pre>
      *
      * If your build server prefers to use env variables defined using property files (Jenkins with EnvInject plugin)
      * you can specify the `outputTemplate as:
      *
+     * <pre>
+     * {@code
      * <outputTemplate>PROJECT_VERSION={{ version }}</outputTemplate>
+     * }
+     * </pre>
      *
      * Please note that when using multi-line templates leading whitespace characters will be stripped.
      */
     @Parameter(defaultValue = default_output_template, required = false)
     protected String outputTemplate;
 
-    @Component
+    @Parameter(defaultValue = "${project}", readonly = true )
     protected MavenProject project;
 
     public ReleaseCandidateMojo() {
