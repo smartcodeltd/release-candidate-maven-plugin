@@ -13,6 +13,9 @@ import org.apache.maven.plugins.annotations.Mojo;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Sets the pom.xml project version as per the configured `versionFormat` template.
+ */
 @Mojo(name = "updateVersion")
 public class UpdateVersionMojo
         extends ReleaseCandidateMojo

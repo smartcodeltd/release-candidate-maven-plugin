@@ -185,10 +185,11 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.7.5.201505241946</version>
+                <version>0.7.4.201502262128</version>
                 <configuration>
                     <destFile>${project.build.directory}/coverage/jacoco-unit.exec</destFile>
                     <dataFile>${project.build.directory}/coverage/jacoco-unit.exec</dataFile>
@@ -209,6 +210,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-scm-plugin</artifactId>
