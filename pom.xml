@@ -238,6 +238,7 @@
                                 <goals>
                                     <goal>tag</goal>
                                 </goals>
+                                <phase>deploy</phase>
                             </execution>
                         </executions>
                         <configuration>
