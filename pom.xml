@@ -161,7 +161,7 @@
                                 <id>get-version</id>
                                 <phase>package</phase>
                                 <configuration>
-                                    <outputUri>file://${project.basedir}/project.properties</outputUri>
+                                    <outputUri>stdout</outputUri>
                                     <outputTemplate>PROJECT_VERSION={{ version }}</outputTemplate>
                                 </configuration>
                                 <goals>
@@ -192,6 +192,31 @@
                                     </rules>
                                     <fail>true</fail>
                                 </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>0.7.4.201502262128</version>
+                        <configuration>
+                            <destFile>${project.build.directory}/coverage/jacoco-unit.exec</destFile>
+                            <dataFile>${project.build.directory}/coverage/jacoco-unit.exec</dataFile>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>jacoco-initialize</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>jacoco-site</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
                             </execution>
                         </executions>
                     </plugin>
@@ -263,31 +288,6 @@
                         <id>generate-index</id>
                         <goals>
                             <goal>main-index</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.7.4.201502262128</version>
-                <configuration>
-                    <destFile>${project.build.directory}/coverage/jacoco-unit.exec</destFile>
-                    <dataFile>${project.build.directory}/coverage/jacoco-unit.exec</dataFile>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>jacoco-initialize</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>jacoco-site</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>report</goal>
                         </goals>
                     </execution>
                 </executions>
