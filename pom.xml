@@ -145,16 +145,16 @@
                     <plugin>
                         <groupId>com.smartcodeltd</groupId>
                         <artifactId>release-candidate-maven-plugin</artifactId>
-                        <version>1.0-201508011913-e4cf36e</version>
+                        <version>${project.version}</version>
                         <executions>
                             <execution>
                                 <id>update-version</id>
                                 <phase>prepare-package</phase>
                                 <configuration>
-                                    <versionFormat>{{ api_version }}-{{ timestamp('YYYYMMddHHmm') }}-${git_hash}</versionFormat>
+                                    <versionFormat>{{ api_version }}-{{ timestamp('YYYYMMddHHmm') }}.${git_hash}</versionFormat>
                                 </configuration>
                                 <goals>
-                                    <goal>version</goal>
+                                    <goal>updateVersion</goal>
                                 </goals>
                             </execution>
                             <execution>
