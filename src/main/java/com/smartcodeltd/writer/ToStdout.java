@@ -17,6 +17,5 @@ public class ToStdout extends Writer {
     @Override
     public void write(String message) {
         out.println(message);
-        out.close();
     }
 }
