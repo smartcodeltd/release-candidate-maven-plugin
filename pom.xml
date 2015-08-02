@@ -31,6 +31,13 @@
         <developerConnection>scm:git:ssh://git@github.com/smartcodeltd/release-candidate-maven-plugin.git</developerConnection>
     </scm>
 
+    <distributionManagement>
+        <repository>
+            <id>bintray</id>
+            <url>https://api.bintray.com/maven/jan-molak/maven/release-candidate-maven-plugin</url>
+        </repository>
+    </distributionManagement>
+
     <developers>
         <developer>
             <id>jan-molak</id>
@@ -171,6 +178,7 @@
                         </executions>
                     </plugin>
 
+                    <!-- make sure that git_hash is specified as it's needed to set the new version -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-enforcer-plugin</artifactId>
@@ -237,6 +245,30 @@
                             <tag>${project.version}</tag>
                             <message>Release candidate ${project.version}</message>
                         </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>
