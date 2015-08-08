@@ -1,24 +1,13 @@
 package com.smartcodeltd;
 
 import com.smartcodeltd.sugar.Property;
-import org.apache.maven.RepositoryUtils;
 import org.apache.maven.artifact.repository.ArtifactRepository;
-import org.apache.maven.execution.DefaultMavenExecutionRequest;
-import org.apache.maven.execution.MavenExecutionRequest;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Repository;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.plugin.Mojo;
 import org.apache.maven.plugin.testing.MojoRule;
 import org.apache.maven.project.MavenProject;
-import org.apache.maven.project.ProjectBuilder;
-import org.apache.maven.project.ProjectBuildingRequest;
-import org.eclipse.aether.DefaultRepositorySystemSession;
-import org.eclipse.aether.RepositorySystem;
-import org.eclipse.aether.RepositorySystemSession;
-import org.eclipse.aether.impl.DefaultServiceLocator;
-import org.eclipse.aether.repository.LocalRepository;
-import org.junit.Assert;
 
 import java.io.File;
 import java.io.FileReader;
@@ -29,10 +18,6 @@ import java.util.List;
 import static com.smartcodeltd.sugar.Property.property;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
-
-import org.apache.maven.repository.internal.MavenRepositorySystemUtils;
-
-import org.apache.maven.repository.internal.MavenRepositorySystemUtils;
 
 
 public class Mojos extends MojoRule {
@@ -77,37 +62,8 @@ public class Mojos extends MojoRule {
 
         project.setFile(pom);
 
-
-//        MavenExecutionRequest request = new DefaultMavenExecutionRequest();
-//        request.setBaseDirectory( pom.getParentFile() );
-//        ProjectBuildingRequest configuration = request.getProjectBuildingRequest();
-//
-//        configuration.setRepositorySession(newSession());
-//
-//        MavenProject project = lookup( ProjectBuilder.class ).build( pom, configuration ).getProject();
-//        Assert.assertNotNull(project);
-//
-//        for (Property p : properties) {
-//            project.getModel().addProperty(p.name, p.value);
-//        }
-
         return project;
     }
-
-//    private RepositorySystemSession newSession( )
-//    {
-//        DefaultServiceLocator locator = MavenRepositorySystemUtils.newServiceLocator();
-//
-//        RepositorySystem system = locator.getService( RepositorySystem.class );
-//
-//        DefaultRepositorySystemSession session = MavenRepositorySystemUtils.newSession();
-//
-//        LocalRepository localRepo = new LocalRepository( "target/local-repo" );
-//        session.setLocalRepositoryManager( system.newLocalRepositoryManager( session, localRepo ) );
-//
-//        return session;
-//    }
-
 
     public void given(Mojo aMojo, String field, Object value) throws IllegalAccessException {
         setVariableValueToObject(aMojo, field, value);

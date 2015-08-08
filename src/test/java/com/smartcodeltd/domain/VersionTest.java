@@ -38,6 +38,7 @@ public class VersionTest {
          */
 
         return Arrays.asList(new Object[][] {
+                // example name         project.version        template          expected result
                 { "M.m.p-SNAPSHOT",     "1.2.1-SNAPSHOT",      "{{ version }}" , "1.2.1-SNAPSHOT"      },
                 { "M.m-SNAPSHOT",       "1.2-SNAPSHOT",        "{{ version }}" , "1.2-SNAPSHOT"        },
                 { "M.m.p",              "1.2.1",               "{{ version }}" , "1.2.1"               },
@@ -80,5 +81,4 @@ public class VersionTest {
 
         assertThat(example, version.toString(), is(projectVersion));
     }
-
 }

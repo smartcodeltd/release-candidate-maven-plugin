@@ -29,7 +29,7 @@ abstract public class ReleaseCandidateMojo
     /**
      * Describes how the pom.xml project version should be translated to a new version number.
      *
-     * Let's say that the project version is set to `1.2.0-beta-SNAPSHOT`, specifying `versionFormat` as per below examples
+     * Let's say that the project version is set to `1.2.0-beta-SNAPSHOT`, specifying `releaseVersionFormat` as per below examples
      * will result in following outcomes:
      *
      * Format                       Outcome                 Comment
@@ -41,23 +41,23 @@ abstract public class ReleaseCandidateMojo
      *                                                      http://joda-time.sourceforge.net/apidocs/org/joda/time/format/DateTimeFormat.html
      *
      * Above tokens can also be used together, so specifying
-     *   versionFormat: "{{ api_version }}.{{ timestamp('YYYYMMdd') }}"
-     *   yields:        1.2.0.20150801
+     *   releaseVersionFormat: "{{ api_version }}.{{ timestamp('YYYYMMdd') }}"
+     *   yields:               1.2.0.20150801
      *
-     *   versionFormat: "{{ api_version }}-builton.{{ timestamp('YYYYMMdd') }}"
-     *   yields:        1.2.0-builton.20150801
+     *   releaseVersionFormat: "{{ api_version }}-builton.{{ timestamp('YYYYMMdd') }}"
+     *   yields:               1.2.0-builton.20150801
      *
      * Standard maven tokens can be used as well, so if you provide, say a `build_number` parameter when you build your project:
      *   mvn clean package -Dbuild_number=176
      *
-     * and given that you set `versionFormat` to:
+     * and given that you set `releaseVersionFormat` to:
      *   "{{ qualified_api_version }}-build.${build_number}"
      *
      * the resulting version number will be:
      *   1.2.0-build.176
      */
-    @Parameter(defaultValue = default_version_format, required = false)
-    protected String versionFormat;
+    @Parameter(defaultValue = default_version_format, required = false, property = "releaseVersionFormat")
+    protected String releaseVersionFormat;
 
     /**
      * Encoding used when reading and writing to files on disk.
@@ -74,7 +74,7 @@ abstract public class ReleaseCandidateMojo
      * Please note that you should use an absolute path when specifying the outputUri.
      * You can get hold of your project base directory by using `${project.basedir}` as per the example above.
      */
-    @Parameter(defaultValue = default_output_uri, required = false)
+    @Parameter(defaultValue = default_output_uri, required = false, property = "outputUri")
     protected URI outputUri;
 
     /**
@@ -103,7 +103,7 @@ abstract public class ReleaseCandidateMojo
      *
      * Please note that when using multi-line templates leading whitespace characters will be stripped.
      */
-    @Parameter(defaultValue = default_output_template, required = false)
+    @Parameter(defaultValue = default_output_template, required = false, property = "outputTemplate")
     protected String outputTemplate;
 
     @Parameter(defaultValue = "${project}", readonly = true )

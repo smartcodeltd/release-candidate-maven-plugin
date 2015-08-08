@@ -17,11 +17,11 @@
             <plugin>
                 <groupId>com.smartcodeltd</groupId>
                 <artifactId>release-candidate-maven-plugin</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>1.0.0-SNAPSHOT</version>
                 <!-- no configuration specified, use defaults: -->
                 <!--
                 <configuration>
-                    <versionFormat>{{ version }}</versionFormat>
+                    <releaseVersionFormat>{{ version }}</releaseVersionFormat>
                     <outputUri>stdout</outputUri>
                     <outputTemplate>{{ version }}</outputTemplate>
                     <encoding>UTF-8</encoding>

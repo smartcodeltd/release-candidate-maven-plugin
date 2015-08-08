@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Sets the pom.xml project version as per the configured `versionFormat` template.
+ * Sets the pom.xml project version as per the configured `releaseVersionFormat` template.
  */
 @Mojo(name = "updateVersion")
 public class UpdateVersionMojo
@@ -35,7 +35,7 @@ public class UpdateVersionMojo
     // --
 
     private String evaluated(Version version) {
-        return version.formattedWith(versionFormat);
+        return version.formattedWith(releaseVersionFormat);
     }
 
     private void update(File pom, String newVersion) throws IOException {
