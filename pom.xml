@@ -60,8 +60,6 @@
     </developers>
 
     <properties>
-        <revision>0000000</revision>
-
         <maven.version>3.2.5</maven.version>
         <maven-plugin-plugin.version>3.4</maven-plugin-plugin.version>
         <release-candidate-plugin.version>1.0.0-SNAPSHOT</release-candidate-plugin.version>
@@ -291,6 +289,34 @@
                         </replacement>
                     </replacements>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <!-- Deploy the web site -->
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>0.12</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+                        <!-- select the Maven phase in which the plugin will be executed -->
+                        <phase>site-deploy</phase>
+                        <configuration>
+                            <!-- Plugin configuration ges here -->
+
+                            <server>github</server>
+
+                            <!-- The commit message -->
+                            <message>Building site for my project</message>
+                            <!-- The location where the site is uploaded -->
+                            <path>${site.path}</path>
+                            <!-- Use merge or override the content -->
+                            <merge>true</merge>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
