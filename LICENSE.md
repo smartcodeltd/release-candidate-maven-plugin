@@ -1,8 +1,8 @@
 New BSD License
 ===============
 
-_Copyright © 2015, Jan Molak, smartcode ltd._
-_All rights reserved._
+Copyright © 2015 Jan Molak, smartcode ltd.
+All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:

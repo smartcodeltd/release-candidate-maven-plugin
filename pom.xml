@@ -7,20 +7,24 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
 
-    <name>release-candidate-maven-plugin</name>
-    <description>continuous delivery-friendly release plugin for maven</description>
+    <name>Release Candidate</name>
+    <description>Enabling Continuous Delivery with Maven</description>
 
-    <url>https://github.com/smartcodeltd/release-candidate-maven-plugin</url>
+    <url>http://release-candidate.smartcodeltd.dev</url>
 
     <issueManagement>
         <url>https://github.com/smartcodeltd/release-candidate-maven-plugin/issues</url>
         <system>GitHub Issues</system>
     </issueManagement>
 
+    <prerequisites>
+        <maven>${maven.version}</maven>
+    </prerequisites>
+
     <licenses>
         <license>
             <name>New BSD License</name>
-            <url>http://opensource.org/licenses/BSD-3-Clause</url>
+            <url>file://${project.basedir}/LICENSE.md</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
@@ -38,6 +42,11 @@
         </repository>
     </distributionManagement>
 
+    <organization>
+        <name>smartcode ltd</name>
+        <url>http://smartcodeltd.co.uk</url>
+    </organization>
+
     <developers>
         <developer>
             <id>jan-molak</id>
@@ -51,6 +60,8 @@
     </developers>
 
     <properties>
+        <revision>0000000</revision>
+
         <maven.version>3.2.5</maven.version>
         <maven-plugin-plugin.version>3.4</maven-plugin-plugin.version>
         <release-candidate-plugin.version>1.0.0-SNAPSHOT</release-candidate-plugin.version>
@@ -145,6 +156,40 @@
         </dependency>
     </dependencies>
 
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-plugin-plugin</artifactId>
+                <version>${maven-plugin-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>2.8</version>
+                <configuration>
+                    <anonymousConnection>scm:git:git@github.com:smartcodeltd/release-candidate-maven-plugin.git</anonymousConnection>
+                    <developerConnection>scm:git:git@github.com:smartcodeltd/release-candidate-maven-plugin.git</developerConnection>
+                </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>summary</report>
+                            <report>license</report>
+                            <report>modules</report>
+                            <report>project-team</report>
+                            <report>scm</report>
+                            <report>issue-tracking</report>
+                            <report>dependencies</report>
+                            <report>dependency-convergence</report>
+                            <report>plugins</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
+
     <build>
         <plugins>
             <!-- maven plugin development-specific stuff -->
@@ -194,76 +239,118 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- release candidate configuration -->
+            <plugin>
+                <groupId>com.smartcodeltd</groupId>
+                <artifactId>release-candidate-maven-plugin</artifactId>
+                <version>${release-candidate-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>default-cli</id>
+                        <goals>
+                            <goal>updateVersion</goal>
+                        </goals>
+                        <configuration>
+                            <releaseVersionFormat>{{ api_version }}-{{ timestamp('YYYYMMddHHmm') }}.${revision}</releaseVersionFormat>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <goals>
+                            <goal>version</goal>
+                        </goals>
+                        <configuration>
+                            <outputTemplate>PROJECT_VERSION={{ version }}</outputTemplate>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- make sure that ${revision} is specified as it's needed to set the new version -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>1.4</version>
+                <executions>
+                    <execution>
+                        <id>default-cli</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireProperty>
+                                    <property>revision</property>
+                                    <message>Please specify the `revision` property</message>
+                                    <regex>[a-f0-9]{7}</regex>
+                                    <regexMessage>revision should be a 7 character long identifier, generated by running `git rev-parse --short HEAD`</regexMessage>
+                                </requireProperty>
+                            </rules>
+                            <fail>true</fail>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- documentation -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.4</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>lt.velykis.maven.skins</groupId>
+                        <artifactId>reflow-velocity-tools</artifactId>
+                        <version>1.1.1</version>
+                    </dependency>
+                    <!-- Reflow skin requires Velocity >= 1.7  -->
+                    <dependency>
+                        <groupId>org.apache.velocity</groupId>
+                        <artifactId>velocity</artifactId>
+                        <version>1.7</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>com.google.code.maven-replacer-plugin</groupId>
+                <artifactId>replacer</artifactId>
+                <version>1.5.3</version>
+                <executions>
+                    <execution>
+                        <phase>site</phase>
+                        <goals>
+                            <goal>replace</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <includes>
+                        <include>${project.build.directory}/site/*.html</include>
+                    </includes>
+                    <replacements>
+                        <replacement>
+                            <token>@GROUP_ID</token>
+                            <value>${project.groupId}</value>
+                        </replacement>
+                        <replacement>
+                            <token>@ARTIFACT_ID</token>
+                            <value>${project.artifactId}</value>
+                        </replacement>
+                        <replacement>
+                            <token>@VERSION</token>
+                            <value>${project.version}</value>
+                        </replacement>
+                    </replacements>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
     <profiles>
         <profile>
-            <id>version</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>com.smartcodeltd</groupId>
-                        <artifactId>release-candidate-maven-plugin</artifactId>
-                        <version>${release-candidate-plugin.version}</version>
-                        <configuration>
-                            <releaseVersionFormat>{{ api_version }}-{{ timestamp('YYYYMMddHHmm') }}.${git_hash}</releaseVersionFormat>
-                        </configuration>
-                    </plugin>
-
-                    <!-- make sure that git_hash is specified as it's needed to set the new version -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-enforcer-plugin</artifactId>
-                        <version>1.4</version>
-                        <executions>
-                            <execution>
-                                <id>git_hash</id>
-                                <goals>
-                                    <goal>enforce</goal>
-                                </goals>
-                                <configuration>
-                                    <rules>
-                                        <requireProperty>
-                                            <property>git_hash</property>
-                                            <message>Please specify the `git_hash` property</message>
-                                            <regex>[a-f0-9]{7}</regex>
-                                            <regexMessage>git_hash should be a 7 character long identifier, generated by running `git rev-parse --short HEAD`</regexMessage>
-                                        </requireProperty>
-                                    </rules>
-                                    <fail>true</fail>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
             <id>publish</id>
             <build>
                 <plugins>
-                    <!-- tell Jenkins the new version -->
-                    <plugin>
-                        <groupId>com.smartcodeltd</groupId>
-                        <artifactId>release-candidate-maven-plugin</artifactId>
-                        <version>${release-candidate-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>get-version</id>
-                                <phase>package</phase>
-                                <configuration>
-                                    <outputUri>stdout</outputUri>
-                                    <outputTemplate>PROJECT_VERSION={{ version }}</outputTemplate>
-                                </configuration>
-                                <goals>
-                                    <goal>version</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-
                     <!-- record test coverage -->
                     <plugin>
                         <groupId>org.jacoco</groupId>
