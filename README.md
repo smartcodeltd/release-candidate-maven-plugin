@@ -1,3 +1,5 @@
+# Release Candidate (Maven Plugin)
+
 **Release Candidate** is a [Maven](https://maven.apache.org/) plugin developed by [smartcode ltd](http://smartcodeltd.co.uk) to make
 integrating Maven projects with [Continuous Delivery](https://en.wikipedia.org/wiki/Continuous_delivery)
 pipelines a little bit easier.
