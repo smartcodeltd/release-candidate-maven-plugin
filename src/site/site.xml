@@ -13,7 +13,7 @@
 
     <publishDate position="bottom" format="yyyy-MM-dd" />
     <version position="bottom" />
-    <googleAnalyticsAccountId>UA-61694827-3</googleAnalyticsAccountId>
+    <googleAnalyticsAccountId>UA-61694827-1</googleAnalyticsAccountId>
 
     <skin>
         <groupId>lt.velykis.maven.skins</groupId>
