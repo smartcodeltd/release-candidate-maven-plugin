@@ -10,7 +10,7 @@
     <name>Release Candidate</name>
     <description>Enabling Continuous Delivery with Maven</description>
 
-    <url>http://release-candidate.smartcodeltd.dev</url>
+    <url>http://release-candidate.smartcodeltd.com</url>
 
     <issueManagement>
         <url>https://github.com/smartcodeltd/release-candidate-maven-plugin/issues</url>
@@ -440,6 +440,7 @@
                         <configuration>
                             <server>github</server>
                             <message>Creating the site for ${project.version}</message>
+                            <userName>smartcode-ci</userName>
                         </configuration>
                         <executions>
                             <execution>
