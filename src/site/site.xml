@@ -8,7 +8,7 @@
         <name><![CDATA[
             <em>Release Candidate</em>
         ]]></name>
-        <href>http://release-candidate.smartcodeltd.dev</href>
+        <href>http://smartcodeltd.com/release-candidate-maven-plugin/</href>
     </bannerLeft>
 
     <publishDate position="bottom" format="yyyy-MM-dd" />
@@ -29,13 +29,13 @@
             <theme>bootswatch-flatly</theme>
             <highlightJs>true</highlightJs>
             <highlightJsTheme>github</highlightJsTheme>
-            <absoluteResourceURL>http://release-candidate.smartcodeltd.dev</absoluteResourceURL>
+            <absoluteResourceURL>http://smartcodeltd.com/release-candidate-maven-plugin/</absoluteResourceURL>
             <brand>
                 <!-- Brand text in top-left part of the site -->
                 <name><![CDATA[
                     <em>Release Candidate</em>
                 ]]></name>
-                <href>http://release-candidate.smartcodeltd.dev</href>
+                <href>http://smartcodeltd.com/release-candidate-maven-plugin/</href>
             </brand>
             <slogan>Enabling Continuous Delivery with Maven</slogan>
             <titleTemplate>%2$s | %1$s</titleTemplate>

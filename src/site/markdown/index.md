@@ -86,7 +86,7 @@ The reason for using the git hash is obvious - to link the build back to the VCS
 The timestamp is used as in certain scenarios (such as debugging the CI server configuration for example)
 there may be several builds produced from the same source code revision.
 
-**Next**: [Brief overview of the plugin](/overview.html)
+**Next**: [Brief overview of the plugin](overview.html)
 
 ---
 

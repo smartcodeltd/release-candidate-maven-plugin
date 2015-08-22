@@ -36,4 +36,4 @@ $> mvn com.smartcodeltd:release-candidate:LATEST:version
 $> mvn com.smartcodeltd:release-candidate:LATEST:updateVersion
 ```
 
-**Next**: [Configure the plugin to your needs](/getting-started.html)
+**Next**: [Configure the plugin to your needs](getting-started.html)
