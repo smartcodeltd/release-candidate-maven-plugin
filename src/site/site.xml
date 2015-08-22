@@ -4,7 +4,6 @@
          name="${project.name}">
 
     <bannerLeft>
-        <!-- Reflow Maven Skin, but with "Reflow" highlighted -->
         <name><![CDATA[
             <em>Release Candidate</em>
         ]]></name>
@@ -117,6 +116,7 @@
         <links>
             <item name="Getting Started" href="/getting-started.html" />
             <item name="GitHub" href="https://github.com/smartcodeltd/release-candidate-maven-plugin/" />
+            <item name="Blog" href="http://smartcodeltd.co.uk/blog/" />
         </links>
 
         <breadcrumbs>
@@ -127,8 +127,9 @@
             <item name="Home" href="./" />
             <item name="Getting Started" href="/getting-started.html" />
             <item name="GitHub" href="https://github.com/smartcodeltd/release-candidate-maven-plugin/" />
-            <item name="Blog" href="http://smartcodeltd.co.uk/blog/" />
             <item name="Release notes" href="https://github.com/smartcodeltd/release-candidate-maven-plugin/releases" />
+            <item name="Blog" href="http://smartcodeltd.co.uk/blog/" />
+            <item name="Contact" href="http://smartcodeltd.co.uk/contact/" />
         </menu>
         <menu name="Download" inherit="top">
             <item name="Download" href="https://bintray.com/jan-molak/maven/release-candidate-maven-plugin/_latestVersion" />

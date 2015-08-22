@@ -1,8 +1,9 @@
 [![Build Status](https://smartcode-opensource.ci.cloudbees.com/buildStatus/icon?job=release-candidate-maven-plugin)](https://smartcode-opensource.ci.cloudbees.com/job/release-candidate-maven-plugin/)
 [![Download](https://api.bintray.com/packages/jan-molak/maven/release-candidate-maven-plugin/images/download.svg) ](https://bintray.com/jan-molak/maven/release-candidate-maven-plugin/_latestVersion)
 
-**Release Candidate** is a [Maven](https://maven.apache.org/) plugin that makes integrating Maven projects with
-[Continuous Delivery](https://en.wikipedia.org/wiki/Continuous_delivery) pipelines a little bit easier.
+**Release Candidate** is a [Maven](https://maven.apache.org/) plugin developed by [smartcode ltd](http://smartcodeltd.co.uk) to make
+integrating Maven projects with [Continuous Delivery](https://en.wikipedia.org/wiki/Continuous_delivery)
+pipelines a little bit easier.
 
 The plugin allows your build server to read the current version of a Maven project and update it automatically
 as part of the build process to include any additional metadata,
