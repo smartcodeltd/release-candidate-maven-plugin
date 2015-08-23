@@ -10,7 +10,7 @@
     <name>Release Candidate</name>
     <description>Enabling Continuous Delivery with Maven</description>
 
-    <url>http://release-candidate.smartcodeltd.com</url>
+    <url>http://smartcodeltd.co.uk/release-candidate-maven-plugin/</url>
 
     <issueManagement>
         <url>https://github.com/smartcodeltd/release-candidate-maven-plugin/issues</url>
