@@ -1,4 +1,4 @@
-## Brief overview
+## Command line usage
 
 To include the Release Candidate plugin in your Maven project, add the following declaration
 to the `project/build/plugins` section of the `pom.xml` file:
@@ -36,4 +36,4 @@ $> mvn com.smartcodeltd:release-candidate:LATEST:version
 $> mvn com.smartcodeltd:release-candidate:LATEST:updateVersion
 ```
 
-**Next**: [Configure the plugin to your needs](getting-started.html)
+**Read next**: [Configure the plugin to your needs](getting-started.html) <small>*(4 minute read)*</small>

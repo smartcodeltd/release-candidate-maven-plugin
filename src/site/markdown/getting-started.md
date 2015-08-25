@@ -11,13 +11,13 @@ For the purpose of this tutorial let's assume that we're working on version `1.0
 and we'd like the target version format to include:
 
 * the API version - `1.0.0`
-* build timestamp - `20150801`
-* git hash - `1b4d455`
+* a build timestamp - `20150801`
+* and a git hash - `1b4d455`
 
 which means that the version format looks like this:
 
 ```
-{{ api_version }}-{{ timestamp('YYYYMMdd' }}.${revision}
+{{ api_version }}-{{ timestamp('YYYYMMdd') }}.${revision}
 ```
 
 and an example version would be:
@@ -63,11 +63,11 @@ and for this reason when using both a timestamp and a git hash in the qualifier 
 </project>
 ```
 
-As you can see we've done several things in the pom:
+As you can see, we've done several things in the pom:
 
 1. the project version is set to `1.0.0-SNAPSHOT`
-2. the `${revision}` parameter we'll use in the final version number has a default value of `0000000`.
-This value be replaced with an actual git hash during the build process.
+2. the `${revision}` parameter we'll use in the final version number has a default value of `0000000`
+(this value will be replaced by an actual git hash injected during the build process)
 3. `@ARTIFACT_ID` is added to `build/plugins` and ready to be configured (4)
 
 **Note**: You can find more on configuring Maven build plugins in [the official documentation](https://maven.apache.org/guides/mini/guide-configuring-plugins.html#Configuring_Build_Plugins).
@@ -99,7 +99,7 @@ In order to configure the first execution, add the following section under `<exe
 
 **Note**: Setting the execution id to `default-cli` and the goal to `updateVersion` means that the configuration
 will be applied when `mvn release-candidate:updateVersion` command is executed on the CI server.
-[(Learn more](https://maven.apache.org/guides/mini/guide-default-execution-ids.html#Default_executionIds_for_Implied_Executions)).
+([Learn more](https://maven.apache.org/guides/mini/guide-default-execution-ids.html#Default_executionIds_for_Implied_Executions)).
 
 To learn more about the [`{{ tokens }}`]((/updateVersion-mojo.html#releaseVersionFormat))
 used to configure the `releaseVersionFormat`, consult the
@@ -134,7 +134,7 @@ PROJECT_VERSION=1.0.0-SNAPSHOT
 [...]
 ```
 
-This makes it easy for the CI server to parse the output and
+A deterministic output format makes it easy for the CI server to parse the output and
 set the [build description](https://wiki.jenkins-ci.org/display/JENKINS/Description+Setter+Plugin) for example.
 
 The [`version` goal](/version-mojo.html) is tied to the `package` phase of
@@ -142,7 +142,7 @@ the [Maven build lifecycle](https://maven.apache.org/guides/introduction/introdu
 by default, which means that whenever you call `mvn package`, the `version` goal will get invoked as well.
 
 **Note** that the `outputTemplate` parameter can be a multi-line string,
-which also [understands `{{ tokens }}`](updateVersion-mojo.html#releaseVersionFormat).
+and that it also understands [`{{ tokens }}`](updateVersion-mojo.html#releaseVersionFormat).
 
 ## Summary
 
@@ -187,7 +187,7 @@ which updates the `pom.xml` project version, and
 mvn clean package
 ```
 
-which produces output the CI server can parse to set the build description.
+which now also produces output the CI server can parse in order to set the build description.
 
 ### Optional: Enforcer configuration
 
@@ -225,7 +225,7 @@ In the case of our example project where the injected parameter is a git hash, a
 </plugin>
 ```
 
-To invoke the enforcer rule add the `validate` goal when invoking `updateVersion`:
+To make sure that the enforcer rule is called, add the `validate` goal when invoking `updateVersion`:
 
 ```
 mvn validate release-candidate:updateVersion -Drevision=`git rev-parse --short HEAD`

@@ -7,7 +7,7 @@
         <name><![CDATA[
             <em>Release Candidate</em>
         ]]></name>
-        <href>http://smartcodeltd.com/release-candidate-maven-plugin/</href>
+        <href>http://smartcodeltd.co.uk/release-candidate-maven-plugin/</href>
     </bannerLeft>
 
     <publishDate position="bottom" format="yyyy-MM-dd" />
@@ -28,13 +28,13 @@
             <theme>bootswatch-flatly</theme>
             <highlightJs>true</highlightJs>
             <highlightJsTheme>github</highlightJsTheme>
-            <absoluteResourceURL>http://smartcodeltd.com/release-candidate-maven-plugin/</absoluteResourceURL>
+            <absoluteResourceURL>http://smartcodeltd.co.uk/release-candidate-maven-plugin/</absoluteResourceURL>
             <brand>
                 <!-- Brand text in top-left part of the site -->
                 <name><![CDATA[
                     <em>Release Candidate</em>
                 ]]></name>
-                <href>http://smartcodeltd.com/release-candidate-maven-plugin/</href>
+                <href>http://smartcodeltd.co.uk/release-candidate-maven-plugin/</href>
             </brand>
             <slogan>Enabling Continuous Delivery with Maven</slogan>
             <titleTemplate>%2$s | %1$s</titleTemplate>
@@ -74,12 +74,20 @@
                         <!--<columns>2</columns>-->
                     </sections>
                 </index>
-                <overview>
-                    <breadcrumbs>false</breadcrumbs>
+                <controlling-the-version-number>
+                    <breadcrumbs>true</breadcrumbs>
                     <toc>false</toc>
-                </overview>
+                </controlling-the-version-number>
+                <command-line-usage>
+                    <breadcrumbs>true</breadcrumbs>
+                    <toc>false</toc>
+                </command-line-usage>
+                <getting-started>
+                    <breadcrumbs>true</breadcrumbs>
+                    <toc>false</toc>
+                </getting-started>
                 <contribute>
-                    <breadcrumbs>false</breadcrumbs>
+                    <breadcrumbs>true</breadcrumbs>
                     <toc>false</toc>
                 </contribute>
                 <!-- Disable source highlighting for Maven reports -->
@@ -114,6 +122,7 @@
         </head>
 
         <links>
+            <item name="Versioning" href="/controlling-the-version-number.html" />
             <item name="Getting Started" href="/getting-started.html" />
             <item name="GitHub" href="https://github.com/smartcodeltd/release-candidate-maven-plugin/" />
             <item name="Blog" href="http://smartcodeltd.co.uk/blog/" />
@@ -125,6 +134,8 @@
 
         <menu name="Main" inherit="top">
             <item name="Home" href="./" />
+            <item name="Versioning" href="/controlling-the-version-number.html" />
+            <item name="Command line" href="/command-line-usage.html" />
             <item name="Getting Started" href="/getting-started.html" />
             <item name="GitHub" href="https://github.com/smartcodeltd/release-candidate-maven-plugin/" />
             <item name="Release notes" href="https://github.com/smartcodeltd/release-candidate-maven-plugin/releases" />
@@ -150,9 +161,11 @@
         <footer>
             <footer>
                 <p class="sponsor">
-                    <span>${project.name} is an open source project, sponsored by</span>
-                    <a href="${project.organization.url}">${project.organization.name}</a>;
-                    <span>under the</span>
+                    <span>${project.name} is an open source project, developed by</span>
+                    <a href="https://www.linkedin.com/in/janmolak">Jan Molak</a>
+                    <span>(</span>
+                    <a href="${project.organization.url}">${project.organization.name}</a>
+                    <span>) under the</span>
                     <a href="license.html">New BSD License</a>
                 </p>
                 <p class="reflow-skin-attribution">
