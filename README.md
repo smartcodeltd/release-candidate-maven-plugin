@@ -1,4 +1,4 @@
-# Release Candidate (Maven Plugin)
+# [Release Candidate](http://smartcodeltd.co.uk/release-candidate-maven-plugin/) (Maven Plugin)
 
 [![Build Status](https://smartcode-opensource.ci.cloudbees.com/buildStatus/icon?job=release-candidate-maven-plugin)](https://smartcode-opensource.ci.cloudbees.com/job/release-candidate-maven-plugin/)
 [![Download](https://api.bintray.com/packages/jan-molak/maven/release-candidate-maven-plugin/images/download.svg) ](https://bintray.com/jan-molak/maven/release-candidate-maven-plugin/_latestVersion)
