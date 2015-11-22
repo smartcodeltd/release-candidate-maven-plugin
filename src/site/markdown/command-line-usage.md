@@ -32,8 +32,8 @@ and understood by the CI server [(learn more)](version-mojo.html).
 Both goals can also be executed from the command line directly:
 
 ```
-$> mvn com.smartcodeltd:release-candidate:LATEST:version
-$> mvn com.smartcodeltd:release-candidate:LATEST:updateVersion
+$> mvn com.smartcodeltd:release-candidate-maven-plugin:LATEST:version
+$> mvn com.smartcodeltd:release-candidate-maven-plugin:LATEST:updateVersion
 ```
 
 **Read next**: [Configure the plugin to your needs](getting-started.html) <small>*(4 minute read)*</small>
