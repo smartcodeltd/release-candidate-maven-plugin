@@ -12,6 +12,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.net.URI;
 
+import static com.smartcodeltd.matchers.EqualsIgnoringOSSpecificLineSeparators.equalsIgnoringOSSpecificLineSeparators;
 import static com.smartcodeltd.sugar.ConfigEntry.configured;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -58,7 +59,7 @@ public class VersionMojoTest {
 
         releaseCandidateVersion.execute();
 
-        assertThat(stdOutContent.toString(), is("1.7.2-SNAPSHOT\n"));
+        assertThat(stdOutContent.toString(), equalsIgnoringOSSpecificLineSeparators("1.7.2-SNAPSHOT\n"));
     }
 
 
@@ -69,7 +70,7 @@ public class VersionMojoTest {
 
         releaseCandidateVersion.execute();
 
-        assertThat(stdOutContent.toString(), is(
+        assertThat(stdOutContent.toString(), equalsIgnoringOSSpecificLineSeparators(
             "##teamcity[setParameter name='env.PROJECT_VERSION' value='1.7.2-teamcity-SNAPSHOT']\n" +
             "##teamcity[message text='Project version: 1.7.2-teamcity-SNAPSHOT']\n" +
             "##teamcity[message text='Api version: 1.7.2']\n" +
@@ -107,7 +108,7 @@ public class VersionMojoTest {
 
         releaseCandidateVersion.execute();
 
-        assertThat(stdOutContent.toString(), is(
+        assertThat(stdOutContent.toString(), equalsIgnoringOSSpecificLineSeparators(
             "##teamcity[setParameter name='env.PROJECT_VERSION' value='1.7.2-SNAPSHOT']\n" +
             "##teamcity[message text='Project version: 1.7.2-SNAPSHOT']\n"
         ));
