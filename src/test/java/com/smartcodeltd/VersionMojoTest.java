@@ -52,7 +52,7 @@ public class VersionMojoTest {
     }
 
     @Test
-    public void tells_full_version_by_defualt() throws Exception {
+    public void tells_full_version_by_default() throws Exception {
         releaseCandidateVersion = mojo.forProject("out-of-the-box");
         releaseCandidateVersion.setLog(log);
 
