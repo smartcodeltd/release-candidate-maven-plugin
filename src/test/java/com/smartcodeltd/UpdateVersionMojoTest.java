@@ -12,6 +12,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
 import static com.smartcodeltd.sugar.Difference.difference;
 import static com.smartcodeltd.sugar.Difference.differenceOf;
@@ -110,7 +111,6 @@ public class UpdateVersionMojoTest {
     public void complains_if_invalid_version_tokens_specified() throws Exception {
         // todo: implement
     }
-
 
     // --
 

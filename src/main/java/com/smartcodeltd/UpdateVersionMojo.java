@@ -1,15 +1,19 @@
 package com.smartcodeltd;
 
+import com.google.common.base.Predicates;
+import com.google.common.collect.Iterables;
 import com.google.common.io.Files;
 import com.smartcodeltd.domain.Version;
 import de.pdark.decentxml.Document;
+import de.pdark.decentxml.Element;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.apache.maven.project.MavenProject;
 
 import java.io.File;
 import java.io.IOException;
+
+import static java.util.Arrays.asList;
 
 /**
  * <p>
@@ -121,7 +125,7 @@ public class UpdateVersionMojo
             throws MojoExecutionException
     {
         File   pom        = project.getFile();
-        String newVersion = evaluated(versionOf(project));
+        String newVersion = evaluated(versionOf(root(project)));
 
         info("Setting version to: '%s'", newVersion);
 
@@ -142,8 +146,15 @@ public class UpdateVersionMojo
     private void update(File pom, String newVersion) throws IOException {
         Document doc = parsed(pom);
 
-        doc.getChild("project/version").setText(newVersion);
+        firstExisting(
+            doc.getChild("project/parent/version"),
+            doc.getChild("project/version")
+        ).setText(newVersion);
 
         Files.write(doc.toString(), pom, charset);
+    }
+
+    private Element firstExisting(Element... elements) {
+        return Iterables.find(asList(elements), Predicates.notNull(), new Element("dummy"));
     }
 }

@@ -2,18 +2,24 @@ package com.smartcodeltd;
 
 import com.smartcodeltd.sugar.Property;
 import org.apache.maven.artifact.repository.ArtifactRepository;
+import org.apache.maven.execution.DefaultMavenExecutionRequest;
+import org.apache.maven.execution.MavenExecutionRequest;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Repository;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.plugin.Mojo;
 import org.apache.maven.plugin.testing.MojoRule;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.project.ProjectBuilder;
+import org.apache.maven.project.ProjectBuildingRequest;
+import org.eclipse.aether.DefaultRepositorySystemSession;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import static com.smartcodeltd.sugar.Property.property;
 import static org.hamcrest.CoreMatchers.*;
@@ -59,7 +65,6 @@ public class Mojos extends MojoRule {
         MavenProject project = new MavenProject(model);
 
         project.setPluginArtifactRepositories(new ArrayList<ArtifactRepository>());
-
         project.setFile(pom);
 
         return project;

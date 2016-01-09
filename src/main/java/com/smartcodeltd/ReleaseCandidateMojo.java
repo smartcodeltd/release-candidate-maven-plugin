@@ -48,6 +48,12 @@ abstract public class ReleaseCandidateMojo
         return new Version(project.getVersion());
     }
 
+    protected MavenProject root(MavenProject project) {
+        return project.hasParent()
+                ? project.getParent()
+                : project;
+    }
+
     protected <T> T getOrElse(T value, T defaultValue) {
         return value != null ? value : defaultValue;
     }

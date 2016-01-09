@@ -341,6 +341,38 @@
                     </replacements>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-invoker-plugin</artifactId>
+                <version>2.0.0</version>
+                <configuration>
+                    <projectsDirectory>src/it</projectsDirectory>
+                    <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
+                    <localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>
+                    <settingsFile>src/it/settings.xml</settingsFile>
+                    <showErrors>true</showErrors>
+                    <streamLogs>true</streamLogs>
+                    <pomIncludes>
+                        <pomInclude>*/pom.xml</pomInclude>
+                    </pomIncludes>
+                    <postBuildHookScript>verify</postBuildHookScript>
+                    <mavenOpts>-Xmx256m</mavenOpts>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>integration-test</id>
+                        <goals>
+                            <goal>install</goal>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <streamLogs>false</streamLogs>
+                            <debug>true</debug>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
