@@ -20,7 +20,7 @@
                 <version>1.0.0-SNAPSHOT</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <outputUri>file://${project.basedir}/project.properties</outputUri>
+                    <outputUri>${project.baseUri}/project.properties</outputUri>
                     <outputTemplate>
                         PROJECT_VERSION={{ version }}
                         API_VERSION={{ api_version }}

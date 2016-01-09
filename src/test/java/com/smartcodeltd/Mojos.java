@@ -74,6 +74,7 @@ public class Mojos extends MojoRule {
     private List<Property> defaultPropertiesFor(final String project) throws IOException {
         return new ArrayList<Property>() {{
             add(property("project.basedir", resources.baseDirectoryOf(project).getCanonicalPath()));
+            add(property("project.baseUri", resources.baseDirectoryOf(project).toURI().toString()));
         }};
     }
 
