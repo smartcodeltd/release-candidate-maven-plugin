@@ -1,5 +1,10 @@
 package com.smartcodeltd;
 
+import static java.util.Arrays.asList;
+
+import java.io.File;
+import java.io.IOException;
+
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
 import com.google.common.io.Files;
@@ -9,11 +14,7 @@ import de.pdark.decentxml.Element;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-
-import java.io.File;
-import java.io.IOException;
-
-import static java.util.Arrays.asList;
+import org.apache.maven.project.MavenProject;
 
 /**
  * <p>
@@ -147,11 +148,38 @@ public class UpdateVersionMojo
         Document doc = parsed(pom);
 
         firstExisting(
-            doc.getChild("project/parent/version"),
-            doc.getChild("project/version")
+                parentVersion(doc),
+                projectVersion(doc)
         ).setText(newVersion);
 
         Files.write(doc.toString(), pom, charset);
+    }
+
+    private Element projectVersion(Document doc) {
+        return doc.getChild("project/version");
+    }
+
+    private Element parentVersion(Document doc) {
+        if(project.hasParent()
+                && !isOrganizationPom(project.getParent())
+                && isSnapshot(project.getParent())
+                && sameGroupId(project, project.getParent())) {
+            return doc.getChild("project/parent/version");
+        } else {
+            return null;
+        }
+    }
+
+    private boolean sameGroupId(MavenProject project, MavenProject parent) {
+       return project.getGroupId().equals(parent.getGroupId());
+    }
+
+    private boolean isSnapshot(MavenProject project) {
+        return project.getVersion().endsWith("SNAPSHOT");
+    }
+
+    private boolean isOrganizationPom(MavenProject parent) {
+        return "pom".equals(parent.getPackaging()) && parent.getModules().isEmpty();
     }
 
     private Element firstExisting(Element... elements) {
