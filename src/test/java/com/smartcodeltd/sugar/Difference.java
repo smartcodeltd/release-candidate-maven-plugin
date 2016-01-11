@@ -1,12 +1,12 @@
 package com.smartcodeltd.sugar;
 
-import com.google.common.base.Objects;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import com.google.common.base.Objects;
 
 public class Difference {
     public final String left;
@@ -24,8 +24,8 @@ public class Difference {
     public static List<Difference> differenceOf(String originalContent, String newContent) {
         List<Difference> differences = new ArrayList<Difference>();
 
-        String[] originalContentLines = originalContent.split("\\n");
-        String[] newContentLines      = newContent.split("\\n");
+        String[] originalContentLines = originalContent.split(System.getProperty("line.separator", "\\n"));
+        String[] newContentLines      = newContent.split(System.getProperty("line.separator", "\\n"));
 
         assertThat("Number of lines differs", originalContentLines.length, is(newContentLines.length));
 
