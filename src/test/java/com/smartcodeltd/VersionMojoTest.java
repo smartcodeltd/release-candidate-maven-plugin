@@ -1,5 +1,16 @@
 package com.smartcodeltd;
 
+import static com.smartcodeltd.matchers.EqualsIgnoringOSSpecificLineSeparators.equalsIgnoringOSSpecificLineSeparators;
+import static com.smartcodeltd.sugar.ConfigEntry.configured;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import com.smartcodeltd.sugar.ConfigEntry;
 import org.apache.maven.plugin.Mojo;
 import org.apache.maven.plugin.logging.Log;
@@ -7,16 +18,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.net.URI;
-
-import static com.smartcodeltd.matchers.EqualsIgnoringOSSpecificLineSeparators.equalsIgnoringOSSpecificLineSeparators;
-import static com.smartcodeltd.sugar.ConfigEntry.configured;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.*;
 
 public class VersionMojoTest {
 
@@ -93,12 +94,31 @@ public class VersionMojoTest {
     }
 
     @Test
+    public void writes_templated_version_to_file_with_outputUri_as_parameter() throws Exception {
+        releaseCandidateVersion = mojo.forProject("out-of-the-box");
+        releaseCandidateVersion.setLog(log);
+
+        String output = resource.baseDirectoryFor("out-of-the-box") + "/project.properties";
+        given(
+                configured("outputUri", output),
+                configured("outputTemplate",
+                        "{{ version }}"
+                ),
+                configured("encoding", "UTF-8")
+        );
+
+        releaseCandidateVersion.execute();
+
+        assertThat(resource.contentOf("out-of-the-box", "project.properties"), is("1.7.2-SNAPSHOT"));
+    }
+
+    @Test
     public void trims_leading_whitespace_in_templates() throws Exception {
         releaseCandidateVersion = mojo.forProject("out-of-the-box");
         releaseCandidateVersion.setLog(log);
 
         given(
-            configured("outputUri", URI.create("stdout")),
+            configured("outputUri", "stdout"),
             configured("outputTemplate",
                     "    ##teamcity[setParameter name='env.PROJECT_VERSION' value='{{ version }}']\n" +
                     "    ##teamcity[message text='Project version: {{ version }}']"

@@ -1,17 +1,16 @@
 package com.smartcodeltd;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+import static org.apache.maven.plugins.annotations.LifecyclePhase.PACKAGE;
+
+import java.io.File;
+import java.io.IOException;
+
 import com.smartcodeltd.domain.Version;
 import com.smartcodeltd.writer.Writer;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.URI;
-
-import static com.google.common.base.Preconditions.checkNotNull;
-import static org.apache.maven.plugins.annotations.LifecyclePhase.PACKAGE;
 
 /**
  * Retrieves project version specified in <code>pom.xml</code> and outputs it
@@ -40,7 +39,7 @@ public class VersionMojo
      * </p>
      */
     @Parameter(defaultValue = default_output_uri, required = false, property = "outputUri")
-    private URI outputUri;
+    private String outputUri;
 
     /**
      * <p>
