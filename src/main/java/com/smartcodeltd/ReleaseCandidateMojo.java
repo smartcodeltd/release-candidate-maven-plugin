@@ -1,5 +1,9 @@
 package com.smartcodeltd;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+
 import com.google.common.io.CharStreams;
 import com.google.common.io.Files;
 import com.smartcodeltd.domain.Version;
@@ -10,11 +14,6 @@ import de.pdark.decentxml.XMLStringSource;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.URI;
-import java.nio.charset.Charset;
 
 abstract public class ReleaseCandidateMojo
     extends AbstractMojo
@@ -49,9 +48,13 @@ abstract public class ReleaseCandidateMojo
     }
 
     protected MavenProject root(MavenProject project) {
-        return project.hasParent()
-                ? project.getParent()
+        return project.hasParent() && !isOrganizationPom(project.getParent())
+                ? root(project.getParent())
                 : project;
+    }
+
+    private boolean isOrganizationPom(MavenProject parent) {
+        return parent.getPackaging().equals("pom") && parent.getModules().isEmpty();
     }
 
     protected <T> T getOrElse(T value, T defaultValue) {
