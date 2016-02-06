@@ -6,7 +6,7 @@
 
     <groupId>com.smartcodeltd</groupId>
     <artifactId>sample-multi-module-project-using-version-inheritance-release-version-print</artifactId>
-    <version>1.0</version>
+    <version>1.0.0-SNAPSHOT</version>
 
     <packaging>pom</packaging>
 
