@@ -160,22 +160,19 @@ public class UpdateVersionMojo
     }
 
     private Element parentVersion(Document doc) {
-        if(project.hasParent()
-                && !isOrganizationPom(project.getParent())
-                && isSnapshot(project.getParent())
-                && sameGroupId(project, project.getParent())) {
-            return doc.getChild("project/parent/version");
-        } else {
-            return null;
-        }
+        return shouldModifyParentVersion()
+            ? doc.getChild("project/parent/version")
+            : null;
     }
 
-    private boolean sameGroupId(MavenProject project, MavenProject parent) {
+    private boolean shouldModifyParentVersion() {
+        return project.hasParent()
+                && ! isOrganizationPom(project.getParent())
+                && hasSameGroupId(project, project.getParent());
+    }
+
+    private boolean hasSameGroupId(MavenProject project, MavenProject parent) {
        return project.getGroupId().equals(parent.getGroupId());
-    }
-
-    private boolean isSnapshot(MavenProject project) {
-        return project.getVersion().endsWith("SNAPSHOT");
     }
 
     private boolean isOrganizationPom(MavenProject parent) {
