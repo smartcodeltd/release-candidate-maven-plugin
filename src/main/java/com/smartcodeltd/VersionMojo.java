@@ -5,6 +5,7 @@ import com.smartcodeltd.writer.Writer;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +18,7 @@ import static org.apache.maven.plugins.annotations.LifecyclePhase.PACKAGE;
  * Retrieves project version specified in <code>pom.xml</code> and outputs it
  * either to stdout or to a file, depending on <a href="/version-mojo.html">configuration</a>.
  */
-@Mojo(name = "version", requiresProject = true, defaultPhase = PACKAGE)
+@Mojo(name = "version", requiresProject = true, defaultPhase = PACKAGE, aggregator = true)
 public class VersionMojo
     extends ReleaseCandidateMojo
 {
