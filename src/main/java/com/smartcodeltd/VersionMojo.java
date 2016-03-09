@@ -2,6 +2,8 @@ package com.smartcodeltd;
 
 import com.smartcodeltd.domain.Version;
 import com.smartcodeltd.writer.Writer;
+import de.pdark.decentxml.Document;
+import de.pdark.decentxml.Element;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -92,6 +94,11 @@ public class VersionMojo
     }
 
     private Version currentVersionFrom(File pom) throws IOException {
-        return new Version(checkNotNull(parsed(pom).getChild("project/version")).getText());
+        Document doc = parsed(pom);
+
+        return new Version(checkNotNull(firstExisting(
+                projectVersion(doc),
+                parentVersion(doc)
+        )).getText());
     }
 }

@@ -155,13 +155,10 @@ public class UpdateVersionMojo
         Files.write(doc.toString(), pom, charset);
     }
 
-    private Element projectVersion(Document doc) {
-        return doc.getChild("project/version");
-    }
-
-    private Element parentVersion(Document doc) {
+    @Override
+    protected Element parentVersion(Document doc) {
         return shouldModifyParentVersion()
-            ? doc.getChild("project/parent/version")
+            ? super.parentVersion(doc)
             : null;
     }
 
@@ -177,9 +174,5 @@ public class UpdateVersionMojo
 
     private boolean isOrganizationPom(MavenProject parent) {
         return "pom".equals(parent.getPackaging()) && parent.getModules().isEmpty();
-    }
-
-    private Element firstExisting(Element... elements) {
-        return Iterables.find(asList(elements), Predicates.notNull(), new Element("dummy"));
     }
 }

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <groupId>com.smartcodeltd.version.saving-version-to-file-during-packaging</groupId>
+        <artifactId>parent</artifactId>
+        <version>1.7-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>child</artifactId>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.smartcodeltd</groupId>
+                <artifactId>release-candidate-maven-plugin</artifactId>
+                <configuration>
+
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>version</goal>
+                        </goals>
+                        <configuration>
+                            <outputTemplate>version={{ version }}</outputTemplate>
+                            <outputUri>file://${project.basedir}/target/classes/build.properties</outputUri>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

@@ -14,6 +14,10 @@ public class ToFile extends Writer {
     public ToFile(URI uri, Charset charset) throws IOException {
         super(uri, charset);
 
+        File destination = new File(uri);
+
+        Files.createParentDirs(destination);
+
         out = Files.newWriter(new File(uri), charset);
     }
 
