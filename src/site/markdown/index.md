@@ -13,7 +13,7 @@ as part of the build process to include **any additional metadata**, such as:
 
 This also means that you can:
 
-* use **[any versioning strategy you like](controlling-the-version.html)** for your release candidates
+* use **[any versioning strategy you like](controlling-the-version-number.html)** for your release candidates
 (and `SNAPSHOT`s for local development)
 * **[control the version](getting-started.html)** of your release candidate and manage it in one place - the `pom` file
 * easily **[integrate with your CI server](version-mojo.html)**
