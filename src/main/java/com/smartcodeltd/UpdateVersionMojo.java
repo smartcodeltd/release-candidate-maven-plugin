@@ -1,20 +1,17 @@
 package com.smartcodeltd;
 
-import static java.util.Arrays.asList;
-
-import java.io.File;
-import java.io.IOException;
-
-import com.google.common.base.Predicates;
-import com.google.common.collect.Iterables;
 import com.google.common.io.Files;
 import com.smartcodeltd.domain.Version;
 import de.pdark.decentxml.Document;
 import de.pdark.decentxml.Element;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.InstantiationStrategy;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * <p>
@@ -27,7 +24,7 @@ import org.apache.maven.project.MavenProject;
  * so that <a href="https://github.com/smartcodeltd/release-candidate-maven-plugin/blob/ac0037773095f5501b5c5af6612b7327335a6ef9/src/test/java/com/smartcodeltd/UpdateVersionMojoTest.java#L90">the only thing that changes</a> is the version number.
  * </p>
  */
-@Mojo(name = "updateVersion")
+@Mojo(name = "updateVersion", instantiationStrategy = InstantiationStrategy.KEEP_ALIVE)
 public class UpdateVersionMojo
         extends ReleaseCandidateMojo
 {
@@ -140,8 +137,13 @@ public class UpdateVersionMojo
 
     // --
 
+    private String evaluatedVersion = null;
     private String evaluated(Version version) {
-        return version.formattedWith(releaseVersionFormat);
+        if (evaluatedVersion == null) {
+            evaluatedVersion = version.formattedWith(releaseVersionFormat);
+        }
+
+        return evaluatedVersion;
     }
 
     private void update(File pom, String newVersion) throws IOException {
