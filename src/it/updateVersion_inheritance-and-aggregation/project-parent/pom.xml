@@ -5,13 +5,15 @@
 
     <parent>
         <groupId>com.smartcodeltd</groupId>
-        <artifactId>sample-multi-module-project-using-version-inheritance-release-version</artifactId>
-        <version>1.0</version>
+        <artifactId>sample-multi-module-project-using-version-inheritance</artifactId>
+        <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
+
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>second</artifactId>
+    <artifactId>project-parent</artifactId>
+    <packaging>pom</packaging>
 
 </project>

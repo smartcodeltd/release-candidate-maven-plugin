@@ -164,6 +164,13 @@ public class UpdateVersionMojo
             : null;
     }
 
+    @Override
+    protected Element projectVersion(Document doc) {
+        return isSnapshot(project)
+                ? super.projectVersion(doc)
+                : null;
+    }
+
     private boolean shouldModifyParentVersion() {
         return project.hasParent()
                 && ! isOrganizationPom(project.getParent())
@@ -172,9 +179,5 @@ public class UpdateVersionMojo
 
     private boolean hasSameGroupId(MavenProject project, MavenProject parent) {
        return project.getGroupId().equals(parent.getGroupId());
-    }
-
-    private boolean isOrganizationPom(MavenProject parent) {
-        return "pom".equals(parent.getPackaging()) && parent.getModules().isEmpty();
     }
 }
