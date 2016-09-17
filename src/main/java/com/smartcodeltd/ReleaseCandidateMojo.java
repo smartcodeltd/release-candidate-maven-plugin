@@ -1,9 +1,5 @@
 package com.smartcodeltd;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.Charset;
-
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
 import com.google.common.io.CharStreams;
@@ -13,6 +9,10 @@ import de.pdark.decentxml.*;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
 
 import static java.util.Arrays.asList;
 
@@ -49,13 +49,21 @@ abstract public class ReleaseCandidateMojo
     }
 
     protected MavenProject root(MavenProject project) {
-        return project.hasParent() && !isOrganizationPom(project.getParent())
+        return project.hasParent() && ! isOrganizationPom(project.getParent())
                 ? root(project.getParent())
                 : project;
     }
 
-    private boolean isOrganizationPom(MavenProject parent) {
-        return parent.getPackaging().equals("pom") && parent.getModules().isEmpty();
+    protected boolean isOrganizationPom(MavenProject parent) {
+        return isParentPom(parent) && ! isSnapshot(parent);
+    }
+
+    private boolean isParentPom(MavenProject parent) {
+        return parent.getPackaging().equals("pom");
+    }
+
+    protected boolean isSnapshot(MavenProject mavenProject) {
+        return mavenProject.getVersion().endsWith("SNAPSHOT");
     }
 
     protected <T> T getOrElse(T value, T defaultValue) {
