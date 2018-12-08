@@ -101,9 +101,9 @@ In order to configure the first execution, add the following section under `<exe
 will be applied when `mvn release-candidate:updateVersion` command is executed on the CI server.
 ([Learn more](https://maven.apache.org/guides/mini/guide-default-execution-ids.html#Default_executionIds_for_Implied_Executions)).
 
-To learn more about the [`{{ tokens }}`]((/updateVersion-mojo.html#releaseVersionFormat))
+To learn more about the [`{{ tokens }}`]((updateVersion-mojo.html#releaseVersionFormat))
 used to configure the `releaseVersionFormat`, consult the
-[documentation of the `updateVersion` goal](/updateVersion-mojo.html#releaseVersionFormat).
+[documentation of the `updateVersion` goal](updateVersion-mojo.html#releaseVersionFormat).
 
 ### Second execution
 
@@ -137,7 +137,7 @@ PROJECT_VERSION=1.0.0-SNAPSHOT
 A deterministic output format makes it easy for the CI server to parse the output and
 set the [build description](https://wiki.jenkins-ci.org/display/JENKINS/Description+Setter+Plugin) for example.
 
-The [`version` goal](/version-mojo.html) is tied to the `package` phase of
+The [`version` goal](version-mojo.html) is tied to the `package` phase of
 the [Maven build lifecycle](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html)
 by default, which means that whenever you call `mvn package`, the `version` goal will get invoked as well.
 
