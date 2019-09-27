@@ -20,7 +20,7 @@ import static org.apache.maven.plugins.annotations.LifecyclePhase.PACKAGE;
  * Retrieves project version specified in <code>pom.xml</code> and outputs it
  * either to stdout or to a file, depending on <a href="/version-mojo.html">configuration</a>.
  */
-@Mojo(name = "version", requiresProject = true, defaultPhase = PACKAGE, aggregator = true)
+@Mojo(name = "version", requiresProject = true, defaultPhase = PACKAGE, aggregator = true, threadSafe = true)
 public class VersionMojo
     extends ReleaseCandidateMojo
 {
