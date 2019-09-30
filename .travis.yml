@@ -26,5 +26,4 @@ deploy:
   on:
     repo: smartcodeltd/release-candidate-maven-plugin
     branch: master
-  after_deploy:
-    - mvn -Ppublish site
+  
