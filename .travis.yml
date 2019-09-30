@@ -4,19 +4,15 @@ if: tag IS blank
 language: java
 jdk: openjdk8
 sudo: false
-
+install: mvn dependency:resolve
 
 cache:
   directories:
     - "$HOME/.m2"
 
-jobs:
-  include:
-    - stage: test
-      script:
-        - mvn clean verify
-        - mvn -Pversion release-candidate:updateVersion -Drevision=`git rev-parse --short HEAD`
-        - mvn site
-        - VERSION=`mvn -Pversion release-candidate:updateVersion`
-    - stage: release
-        - echo $VERSION
+script:
+  - mvn clean verify
+  - mvn -Pversion release-candidate:updateVersion -Drevision=`git rev-parse --short HEAD`
+  - mvn site
+  - VERSION=`mvn -Pversion release-candidate:updateVersion`
+  - echo "NEW VERSION" $VERSION
