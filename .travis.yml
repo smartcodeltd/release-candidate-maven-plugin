@@ -14,8 +14,8 @@ jobs:
   include:
     - stage: test
       script:
-        - mvn com.smartcodeltd:release-candidate-maven-plugin:updateVersion -Drevision=`git rev-parse --short HEAD`
         - mvn clean verify
+        - mvn -Pversion release-candidate:updateVersion -Drevision=`git rev-parse --short HEAD`
         - mvn site
 
 #deploy:
