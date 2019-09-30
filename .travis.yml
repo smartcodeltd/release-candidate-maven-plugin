@@ -13,6 +13,14 @@ cache:
 jobs:
   include:
     - stage: test
-      script: mvn clean verify
+      script: mvn clean install
+    - stage: version
+      script: mvn com.smartcodeltd:release-candidate-maven-plugin:updateVersion
     - stage: site
+      if: branch = master
       script: mvn site
+
+devploy:
+  provider: bintray
+  dry_run: true
+  on: master
