@@ -11,8 +11,10 @@ cache:
     - "$HOME/.m2"
 
 script:
-  - mvn clean verify
+  - mvn clean
   - mvn -Pversion release-candidate:updateVersion -Drevision=`git rev-parse --short HEAD`
+  - mvn verify
+  - mvn -Pversion release-candidate:version -DoutputUri="file://\${project.basedir}/target/project.version"
   - mvn site
-  - VERSION=`mvn -Pversion release-candidate:updateVersion`
-  - echo "NEW VERSION" $VERSION
+  - echo "[VERSION]"
+  - cat target/project.version
