@@ -20,7 +20,8 @@ jobs:
       if: branch = master
       script: mvn com.smartcodeltd:release-candidate:updateVersion -Drevision=`git rev-parse --short HEAD`
 
-deploy:
-  provider: bintray
-  dry_run: true
-  on: master
+#deploy:
+#  provider: bintray
+#  dry_run: true
+#  edge: true
+#  on: master
