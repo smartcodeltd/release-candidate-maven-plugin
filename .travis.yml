@@ -19,11 +19,10 @@ script:
 deploy:
   provider: bintray
   skip_cleanup: true
-  edge: true
   file: target/bintray.json
   user: jan-molak
   key: $BINTRAY_API_KEY
   on:
     repo: smartcodeltd/release-candidate-maven-plugin
     branch: master
-  
+
