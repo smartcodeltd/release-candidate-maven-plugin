@@ -1,6 +1,6 @@
 # [Release Candidate](http://smartcodeltd.co.uk/release-candidate-maven-plugin/) (Maven Plugin)
 
-[![Build Status](https://smartcode-opensource.ci.cloudbees.com/buildStatus/icon?job=release-candidate-maven-plugin)](https://smartcode-opensource.ci.cloudbees.com/job/release-candidate-maven-plugin/)
+[![Build Status](https://travis-ci.org/smartcodeltd/release-candidate-maven-plugin.svg?branch=master)](https://travis-ci.org/smartcodeltd/release-candidate-maven-plugin)
 [![Download](https://api.bintray.com/packages/jan-molak/maven/release-candidate-maven-plugin/images/download.svg) ](https://bintray.com/jan-molak/maven/release-candidate-maven-plugin/_latestVersion)
 
 **Release Candidate** is a [Maven](https://maven.apache.org/) plugin developed by [smartcode ltd](http://smartcodeltd.co.uk) to make
