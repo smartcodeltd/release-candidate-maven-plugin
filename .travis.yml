@@ -14,7 +14,7 @@ script:
   - mvn clean
   - mvn -Pversion release-candidate:updateVersion -Drevision=`git rev-parse --short HEAD`
   - mvn verify
-  - mvn -Pversion release-candidate:version -DoutputUri="file://${project.basedir}/target/project.version"
+  - mvn -Pversion release-candidate:version -DoutputUri="file://\${project.basedir}/target/project.version"
+  - VERSION=`cat ./target/project.version`
   - mvn site
-  - echo "[VERSION]"
-  - cat target/project.version
+  - echo "[VERSION]" $VERSION
