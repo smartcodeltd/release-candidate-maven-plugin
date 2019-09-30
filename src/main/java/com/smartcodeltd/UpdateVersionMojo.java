@@ -24,7 +24,7 @@ import java.io.IOException;
  * so that <a href="https://github.com/smartcodeltd/release-candidate-maven-plugin/blob/ac0037773095f5501b5c5af6612b7327335a6ef9/src/test/java/com/smartcodeltd/UpdateVersionMojoTest.java#L90">the only thing that changes</a> is the version number.
  * </p>
  */
-@Mojo(name = "updateVersion", instantiationStrategy = InstantiationStrategy.KEEP_ALIVE)
+@Mojo(name = "updateVersion", instantiationStrategy = InstantiationStrategy.KEEP_ALIVE, threadSafe = true) 
 public class UpdateVersionMojo
         extends ReleaseCandidateMojo
 {
