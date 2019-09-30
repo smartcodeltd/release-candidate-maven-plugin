@@ -1,0 +1,15 @@
+# don't build tags, it's redundant
+if: tag IS blank
+
+language: java
+sudo: false
+
+cache:
+  directories:
+    - "$HOME/.m2"
+
+jobs:
+  include:
+    - stage: test
+      jdk: openjdk8
+      script: mvn clean verify
