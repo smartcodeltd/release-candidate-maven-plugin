@@ -13,14 +13,14 @@ cache:
 jobs:
   include:
     - stage: test
-      script: mvn clean install
+      script:
+        - mvn clean install
+        - mvn site
     - stage: version
-      script: mvn com.smartcodeltd:release-candidate-maven-plugin:updateVersion
-    - stage: site
       if: branch = master
-      script: mvn site
+      script: mvn com.smartcodeltd:release-candidate:updateVersion -Drevision=`git rev-parse --short HEAD`
 
-devploy:
+deploy:
   provider: bintray
   dry_run: true
   on: master
