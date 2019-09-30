@@ -11,18 +11,9 @@ cache:
     - "$HOME/.m2"
 
 script:
+  - cp settings.xml $HOME/.m2/settings.xml
   - mvn clean
   - mvn -Pversion release-candidate:updateVersion -Drevision=`git rev-parse --short HEAD`
-  - mvn verify
-
-# https://www.diversit.eu/post/2019/01/05/Github-TravisCi-Bintry-Maven-Setup.html
-deploy:
-  provider: bintray
-  skip_cleanup: true
-  file: target/bintray.json
-  user: jan-molak
-  key: $BINTRAY_API_KEY
-  on:
-    repo: smartcodeltd/release-candidate-maven-plugin
-    branch: master
+  - mvn verify site
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then mvn -Ppublish deploy; fi
 
