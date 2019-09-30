@@ -15,5 +15,5 @@ script:
   - mvn clean
   - mvn -Pversion release-candidate:updateVersion -Drevision=`git rev-parse --short HEAD`
   - mvn verify site
-  - if [ "$TRAVIS_BRANCH" = "master" ]; then ls target && mvn -Ppublish deploy; fi
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then ls -lah target && mvn -Ppublish -e deploy; fi
 
