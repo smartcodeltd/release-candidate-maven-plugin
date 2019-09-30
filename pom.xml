@@ -546,7 +546,7 @@
                                     <goal>deploy-file</goal>
                                 </goals>
                                 <configuration>
-                                    <file>target/${project.artifactId}-${project.version}.jar}</file>
+                                    <file>${project.basedir}/target/${project.artifactId}-${project.version}.jar}</file>
                                     <repositoryId>bintray</repositoryId>
                                     <url>${project.distributionManagement.repository.url}</url>
                                     <groupId>${project.groupId}</groupId>
