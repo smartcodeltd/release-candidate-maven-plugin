@@ -373,6 +373,32 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- bintray -->
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <inherited>false</inherited>
+                <configuration>
+                    <outputDirectory>${basedir}/target</outputDirectory>
+                    <resources>
+                        <resource>
+                            <directory>${basedir}</directory>
+                            <include>bintray.json</include>
+                            <filtering>true</filtering>
+                        </resource>
+                    </resources>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 

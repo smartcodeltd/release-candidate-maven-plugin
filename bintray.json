@@ -1,0 +1,32 @@
+{
+  "package": {
+    "name": "${project.name}",
+    "repo": "maven",
+    "subject": "jan-molak",
+    "website_url": "${project.url}",
+    "issue_tracker_url": "${project.issueManagement.url}",
+    "vcs_url": "${project.scm.url}",
+    "licenses": ["BSD New"],
+    "labels": [],
+    "public_download_numbers": true,
+    "public_stats": true
+  },
+  "version": {
+    "name": "${project.version}",
+    "released": "${maven.build.timestamp}",
+    "vcs_tag": "${project.version}"
+  },
+  "files":
+  [
+    {
+      "includePattern": "target/(.*\.jar)",
+      "uploadPattern": "com/smartcodeltd/release-candidate-maven-plugin/${project.version}/$1"
+    },
+    {
+      "includePattern": "pom.xml",
+      "uploadPattern": "com/smartcodeltd/release-candidate-maven-plugin/${project.version}/release-candidate-maven-plugin-${project.version}.pom"
+    }
+
+  ],
+  "publish": true
+}
