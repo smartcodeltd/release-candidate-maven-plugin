@@ -14,11 +14,9 @@ jobs:
   include:
     - stage: test
       script:
-        - mvn clean install
+        - mvn com.smartcodeltd:release-candidate-maven-plugin:updateVersion -Drevision=`git rev-parse --short HEAD`
+        - mvn clean verify
         - mvn site
-    - stage: version
-      if: branch = master
-      script: mvn com.smartcodeltd:release-candidate:updateVersion -Drevision=`git rev-parse --short HEAD`
 
 #deploy:
 #  provider: bintray
