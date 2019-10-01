@@ -555,8 +555,8 @@
                             <basedir>${project.basedir}</basedir>
                             <tag>${project.version}</tag>
                             <message>Release candidate ${project.version}</message>
-                            <connectionUrl>https://github.com/smartcodeltd/release-candidate-maven-plugin.git</connectionUrl>
-                            <developerConnectionUrl>https://github.com/smartcodeltd/release-candidate-maven-plugin.git</developerConnectionUrl>
+                            <connectionUrl>scm:git:https://github.com/smartcodeltd/release-candidate-maven-plugin.git</connectionUrl>
+                            <developerConnectionUrl>scm:git:https://github.com/smartcodeltd/release-candidate-maven-plugin.git</developerConnectionUrl>
                         </configuration>
                     </plugin>
                 </plugins>
