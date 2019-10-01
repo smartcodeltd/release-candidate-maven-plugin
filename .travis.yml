@@ -15,7 +15,12 @@ script:
   - mvn clean
   - mvn -Pversion release-candidate:updateVersion -Drevision=`git rev-parse --short HEAD`
   - mvn verify site
-  - if [ "$TRAVIS_BRANCH" = "master" ]; then mvn -Ppublish -DskipTests deploy; fi
+  - |
+    if [ "$TRAVIS_BRANCH" = "master" ]; then
+        git config --global user.email "travis@travis-ci.org"
+        git config --global user.name "Travis CI"
+        mvn -Ppublish -DskipTests deploy
+    fi
 
 deploy:
   provider: pages
