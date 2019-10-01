@@ -15,5 +15,13 @@ script:
   - mvn clean
   - mvn -Pversion release-candidate:updateVersion -Drevision=`git rev-parse --short HEAD`
   - mvn verify site
-  - if [ "$TRAVIS_BRANCH" = "master" ]; then mvn -Ppublish deploy; fi
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then mvn -Ppublish -DskipTests deploy; fi
 
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  keep_history: false
+  local_dir: target/site
+  on:
+    branch: master
