@@ -1,11 +1,14 @@
 package com.smartcodeltd.writer;
 
+import java.io.File;
 import java.lang.reflect.Constructor;
 import java.net.URI;
 import java.nio.charset.Charset;
 
 public abstract class Writer {
-    public static Writer from(URI uri, Charset charset) {
+    public static Writer from(String output, Charset charset) {
+
+        URI uri = uri(output);
 
         String className = writerClassNameFrom(uri);
 
@@ -17,6 +20,17 @@ public abstract class Writer {
         } catch (Exception e) {
             throw new IllegalArgumentException(String.format("Couldn't find the '%s' writer.", className), e);
         }
+    }
+
+    private static URI uri(String output) {
+        File file = new File(output);
+        URI uri;
+        if (file.isAbsolute()) {
+            uri = file.toURI();
+        } else {
+            uri = URI.create(output);
+        }
+        return uri;
     }
 
     protected final URI uri;
